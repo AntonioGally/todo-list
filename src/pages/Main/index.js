@@ -12,12 +12,12 @@ const Main = () => {
   return (
     <>
       <Container>
-        <Col span={6}>
+        <Col xs={24} sm={24} md={24} lg={6} xl={6}>
           <SideBarContent>
             <SideBar />
           </SideBarContent>
         </Col>
-        <Col span={18}>
+        <Col xs={24} sm={24} md={24} lg={18} xl={18}>
           <CardContent>
             <Card />
           </CardContent>
