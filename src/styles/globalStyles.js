@@ -239,4 +239,8 @@ template {
 [hidden] {
   display: none;
 }
+:root {
+  --title: #69665C;
+  --subTitle: #B2AFA1;
+}
 `;
