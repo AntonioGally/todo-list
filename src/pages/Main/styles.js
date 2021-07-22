@@ -10,10 +10,13 @@ export const Container = styled.div`
 `;
 
 export const SideBarContent = styled.div`
+  padding: 6px;
   height: 100%;
   width: 100%;
 `;
 
 export const CardContent = styled.div`
+  padding: 6px;
+  height: 100%;
   width: 100%;
 `;
