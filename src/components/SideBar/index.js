@@ -1,5 +1,5 @@
 import React from "react";
-import { list } from "./data";
+import { tag_list } from "../../api";
 import { Checkbox } from "antd";
 
 //Minor components
@@ -9,18 +9,18 @@ const SideBar = () => {
   return (
     <>
       <Container>
-        <Scrolable>
+        <div>
           <Head>
             <h3>todo</h3>
           </Head>
           <Body>
-            {list.map((data, index) => (
+            {tag_list.map((data, index) => (
               <Tag color={data.color} key={index}>
                 {data.text}
               </Tag>
             ))}
           </Body>
-        </Scrolable>
+        </div>
         <Foot>
           <Checkbox>Hide Done Tasks</Checkbox>
         </Foot>

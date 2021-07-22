@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
+  height: 100vh;
   max-height: 100vh;
   display: flex;
   align-content: center;
@@ -9,6 +10,7 @@ export const Container = styled.div`
 `;
 
 export const SideBarContent = styled.div`
+  height: 100%;
   width: 100%;
 `;
 
