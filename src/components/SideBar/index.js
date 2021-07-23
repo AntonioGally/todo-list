@@ -1,11 +1,10 @@
-import React from "react";
-import { tag_list } from "../../api";
+import React, { memo } from "react";
 import { Checkbox } from "antd";
 
 //Minor components
-import { Container, Scrolable, Head, Body, Tag, Foot } from "./styles";
+import { Container, Head, Body, Tag, Foot } from "./styles";
 
-const SideBar = () => {
+const SideBar = (props) => {
   return (
     <>
       <Container>
@@ -14,7 +13,7 @@ const SideBar = () => {
             <h3>todo</h3>
           </Head>
           <Body>
-            {tag_list.map((data, index) => (
+            {props.list.map((data, index) => (
               <Tag color={data.color} key={index}>
                 {data.text}
               </Tag>
@@ -29,4 +28,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default memo(SideBar);

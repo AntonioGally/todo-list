@@ -242,5 +242,6 @@ template {
 :root {
   --title: #69665C;
   --subTitle: #B2AFA1;
+  --cardBackground: #FFF9DE;
 }
 `;
