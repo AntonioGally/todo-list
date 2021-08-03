@@ -13,11 +13,17 @@ const SideBar = (props) => {
             <h3>todo</h3>
           </Head>
           <Body>
-            {props.list.map((data, index) => (
-              <Tag color={data.color} key={index}>
-                {data.text}
-              </Tag>
-            ))}
+            {props.list?.length > 0 ? (
+              <>
+                {props.list.map((data, index) => (
+                  <Tag color={data.color} key={index}>
+                    {data.text}
+                  </Tag>
+                ))}
+              </>
+            ) : (
+              <h3>You dont have any tags yet</h3>
+            )}
           </Body>
         </div>
         <Foot>

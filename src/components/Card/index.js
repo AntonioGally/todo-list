@@ -13,9 +13,21 @@ import {
   Tag,
 } from "./styles";
 
+//Utils
+import { getTodos, setTodos, cleanStorage } from "../../services/utils.js";
+
 //Components
 import { Checkbox, Col } from "antd";
-const Card = ({ dataProps }) => {
+const Card = ({ dataProps, index }) => {
+  const handleDataChange = () => {
+    var auxTodos = getTodos();
+    auxTodos[index].done = !auxTodos[index].done;
+    cleanStorage();
+    setTimeout(() => {
+      setTodos(auxTodos);
+    }, 200);
+    console.log(auxTodos);
+  };
   return (
     <>
       <Col sm={24} md={12} lg={12}>
@@ -33,7 +45,12 @@ const Card = ({ dataProps }) => {
                 <Tag key={index} color={data.color} />
               ))}
             </TagContent>
-            <Checkbox checked={dataProps.done}>Done</Checkbox>
+            <Checkbox
+              checked={dataProps.done}
+              onChange={(e) => handleDataChange()}
+            >
+              Done
+            </Checkbox>
           </Foot>
         </Container>
       </Col>
