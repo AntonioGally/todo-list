@@ -6,8 +6,8 @@ import { setTags, setTodos, getTodos, getTags } from "../services/utils.js";
 export const dataContext = createContext({});
 
 export default function DataContextProvider({ children }) {
-  const [todoList, setTodoList] = useState(getTodos());
-  const [tagList, setTagList] = useState(getTags());
+  const [todoList, setTodoList] = useState();
+  const [tagList, setTagList] = useState();
 
   useEffect(() => {
     //Sync the local storage
@@ -21,15 +21,12 @@ export default function DataContextProvider({ children }) {
 
   useEffect(() => {
     //Checking if there is a data on API
-    if (setTodos()) {
-      setTodos();
+    if (getTodos()) {
       setTodoList(getTodos());
     }
-    if (setTags()) {
-      setTags();
+    if (getTags()) {
       setTagList(getTags());
     }
-    // setTags();
   }, []);
 
   return (
