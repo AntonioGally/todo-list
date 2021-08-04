@@ -19,4 +19,8 @@ export const CardContent = styled.div`
   padding: 6px;
   height: 100%;
   width: 100%;
+  display: flex;
+  align-content: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 `;
