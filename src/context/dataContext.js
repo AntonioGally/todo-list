@@ -11,14 +11,13 @@ export default function DataContextProvider({ children }) {
 
   useEffect(() => {
     //Sync the local storage
-    setTodos(todoList);
+    if (todoList) setTodos(todoList);
   }, [todoList]);
 
   useEffect(() => {
     //Sync the local storage
-    setTags(tagList);
+    if (tagList) setTags(tagList);
   }, [tagList]);
-
   useEffect(() => {
     //Checking if there is a data on API
     if (getTodos()) {
@@ -28,6 +27,7 @@ export default function DataContextProvider({ children }) {
       setTagList(getTags());
     }
   }, []);
+
 
   return (
     <dataContext.Provider
