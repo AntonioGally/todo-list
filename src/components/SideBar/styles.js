@@ -1,5 +1,7 @@
 import styled from "styled-components";
+//Icons
 import { MessageAltAdd } from "@styled-icons/boxicons-regular/MessageAltAdd";
+import { Trash } from "@styled-icons/boxicons-regular/Trash";
 export const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -47,6 +49,13 @@ export const Body = styled.div`
     background: #555;
   }
 `;
+export const TagContent = styled.div`
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+`;
 export const Tag = styled.span`
   white-space: nowrap;
   overflow-x: hidden;
@@ -61,7 +70,6 @@ export const Tag = styled.span`
   font-weight: 600;
   line-height: 165%;
   color: var(--subTitle);
-  margin-top: 16px;
   padding-left: 26px;
   position: relative;
   ::before {
@@ -74,6 +82,13 @@ export const Tag = styled.span`
     border-radius: 50px;
     background-color: ${(props) => props.color};
   }
+`;
+
+export const DeleteIcon = styled(Trash)`
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  color: #ff6161;
 `;
 
 export const Foot = styled.div`

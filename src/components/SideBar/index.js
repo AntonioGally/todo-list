@@ -8,11 +8,27 @@ import ModalTag from "../Modal";
 // import { Checkbox } from "antd";
 
 //Minor components
-import { Container, Head, Body, Tag, Foot, AddIcon } from "./styles";
+import {
+  Container,
+  Head,
+  Body,
+  TagContent,
+  Tag,
+  DeleteIcon,
+  Foot,
+  AddIcon,
+} from "./styles";
 
 const SideBar = (props) => {
-  const { tagList } = useContext(dataContext);
+  const { tagList, setTagList } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
+
+  function handleDelete(index) {
+    var newArr = tagList.slice();
+    newArr.splice(index, 1);
+    setTagList(newArr);
+  }
+
   return (
     <>
       <Container>
@@ -24,9 +40,16 @@ const SideBar = (props) => {
             {tagList?.length > 0 ? (
               <>
                 {tagList.map((data, index) => (
-                  <Tag color={data.color} key={index}>
-                    {data.text}
-                  </Tag>
+                  <TagContent>
+                    <Tag color={data.color} key={index}>
+                      {data.text}
+                    </Tag>
+                    <DeleteIcon
+                      onClick={() => {
+                        handleDelete(index);
+                      }}
+                    />
+                  </TagContent>
                 ))}
               </>
             ) : (
@@ -43,7 +66,6 @@ const SideBar = (props) => {
       <ModalTag
         hideModal={() => setShowModal(false)}
         showModal={showModal}
-        tagList={tagList}
         type="tag"
       />
     </>
