@@ -23,3 +23,7 @@ export function getTags() {
 export function cleanStorage() {
   localStorage.clear();
 }
+
+export function shuffle(array) {
+  return array.sort(() => (Math.random() > .5) ? 1 : -1);
+}

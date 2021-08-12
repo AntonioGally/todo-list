@@ -1,10 +1,15 @@
-import React, { memo } from "react";
-import { Checkbox } from "antd";
+import React, { useState } from "react";
+
+//Components
+import ModalTag from "../Modal";
+// import { Checkbox } from "antd";
 
 //Minor components
-import { Container, Head, Body, Tag, Foot } from "./styles";
+import { Container, Head, Body, Tag, Foot, AddIcon } from "./styles";
 
 const SideBar = (props) => {
+
+  const [showModal, setShowModal] = useState(false);
   return (
     <>
       <Container>
@@ -27,11 +32,19 @@ const SideBar = (props) => {
           </Body>
         </div>
         <Foot>
-          <Checkbox>Hide Done Tasks</Checkbox>
+          <AddIcon onClick={() => setShowModal(true)} />
+          <span onClick={() => setShowModal(true)}>Add a new tag</span>
+          {/* <Checkbox>Hide Done Tasks</Checkbox> */}
         </Foot>
       </Container>
+      <ModalTag
+        hideModal={() => setShowModal(false)}
+        showModal={showModal}
+        tagList={props.list}
+        type="tag"
+      />
     </>
   );
 };
 
-export default memo(SideBar);
+export default SideBar;

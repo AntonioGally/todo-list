@@ -41,10 +41,10 @@ const App = () => {
         </Container>
       </DataContextProvider>
       <ModalTodo
-        type="add"
         hideModal={() => setShowModal(false)}
         showModal={showModal}
         tagList={tagList}
+        type="todo"
       />
     </>
   );

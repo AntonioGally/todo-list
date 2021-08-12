@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { MessageAltAdd } from "@styled-icons/boxicons-regular/MessageAltAdd";
 export const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -78,5 +78,15 @@ export const Tag = styled.span`
 
 export const Foot = styled.div`
   width: 100%;
-  margin-top: 32px;
+  /* margin-top: 32px; */
+  > span {
+    cursor: pointer;
+  }
+`;
+
+export const AddIcon = styled(MessageAltAdd)`
+  width: 32px;
+  height: 32px;
+  margin-right: 6px;
+  cursor: pointer;
 `;

@@ -243,5 +243,7 @@ template {
   --title: #69665C;
   --subTitle: #B2AFA1;
   --cardBackground: #FFF9DE;
+  --buttonBackground: #69665C;
+  --buttonFont: #FFF;
 }
 `;

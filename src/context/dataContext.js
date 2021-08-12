@@ -6,8 +6,8 @@ import { setTags, setTodos, getTodos, getTags } from "../services/utils.js";
 export const dataContext = createContext({});
 
 export default function DataContextProvider({ children }) {
-  const [todoList, setTodoList] = useState();
-  const [tagList, setTagList] = useState();
+  const [todoList, setTodoList] = useState([]);
+  const [tagList, setTagList] = useState([]);
 
   useEffect(() => {
     //Sync the local storage
