@@ -113,4 +113,10 @@ export const Color = styled.div`
   padding: 3px;
   margin: 3px;
   background-color: ${(props) => props.color};
+  opacity: 0.3;
+  ${(props) => {
+    if (props.isSelected) {
+      return "opacity: 1";
+    }
+  }}
 `;

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 
 //Scripts
+import { dataContext } from "../../context/dataContext";
 import { colorsData } from "../../services/colors.js";
-import { shuffle } from "../../services/utils.js";
 //Components
 import { Modal } from "antd";
 import Message from "./message";
@@ -27,15 +27,60 @@ import {
 import "./styles.css";
 
 const ModalTodo = (props) => {
-  const handleTagClick = (index) => {};
-
+  const [tagSelector, setTagSelector] = useState([]);
+  const [colorSelector, setColorSelector] = useState([]);
+  const { tagList, setTagList } = useContext(dataContext);
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset
   } = useForm();
 
-  const onSubmit = (data) => {};
+  function handleTagClick(index) {
+    var auxArr = tagSelector.slice();
+    auxArr.push(index);
+    setTagSelector(auxArr);
+  }
+  function handleColorClick(index) {
+    var auxArr = colorSelector.slice();
+    if (auxArr.indexOf(index) > -1) {
+      auxArr.pop();
+    } else {
+      if (auxArr.length <= 0) {
+        auxArr.push(index);
+      } else {
+        auxArr.pop();
+        auxArr.push(index);
+      }
+    }
+    setColorSelector(auxArr);
+  }
+
+  function onSubmit(data) {
+    if (props.type === "tag") {
+      if (colorSelector.length === 0) {
+        console.log("ADD UMA COR");
+      } else {
+        var auxObj = {
+          id: tagList.length + 1,
+          color: colorsData()[colorSelector],
+          text: data.title,
+        };
+        var auxArr = tagList.slice();
+        auxArr.push(auxObj);
+        setTagList(auxArr);
+      }
+    }
+    handleCancel();
+    props.hideModal();
+  }
+
+  function handleCancel() {
+    setColorSelector([]);
+    setTagSelector([]);
+    reset();
+  }
 
   return (
     <Modal
@@ -44,7 +89,10 @@ const ModalTodo = (props) => {
       footer={null}
       closable={false}
       wrapClassName={"modal-todo"}
-      onCancel={() => props.hideModal()}
+      onCancel={() => {
+        handleCancel();
+        props.hideModal();
+      }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Navbar>
@@ -57,6 +105,7 @@ const ModalTodo = (props) => {
           <div>
             <Title>Title</Title>
             <Input
+              type="text"
               placeholder="add a title..."
               {...register("title", {
                 required: true,
@@ -78,6 +127,7 @@ const ModalTodo = (props) => {
             <div>
               <Title>Description</Title>
               <TextArea
+                type="text"
                 placeholder="add a description..."
                 {...register("description", {
                   required: true,
@@ -112,8 +162,8 @@ const ModalTodo = (props) => {
               {props.tagList?.map((data, index) => (
                 <Tag
                   key={index}
-                  colorTa={data.color}
-                  onClick={handleTagClick(index)}
+                  colorTag={data.color}
+                  onClick={() => handleTagClick(index)}
                 >
                   {data.text}
                 </Tag>
@@ -122,10 +172,14 @@ const ModalTodo = (props) => {
           )}
           {props.type === "tag" && (
             <TagContent>
-              {shuffle(colorsData()).map((data, index) => (
-                <Color color={data} key={index} />
+              {colorsData().map((data, index) => (
+                <Color
+                  color={data}
+                  key={index}
+                  onClick={() => handleColorClick(index)}
+                  isSelected={colorSelector.indexOf(index) > -1}
+                />
               ))}
-              {/* <span onClick={() => console.log(list)}>Oi</span> */}
             </TagContent>
           )}
         </Footer>

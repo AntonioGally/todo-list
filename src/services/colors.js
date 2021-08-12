@@ -1,3 +1,4 @@
+import { getTags } from "./utils";
 const list = [
   {
     scale: "blue",
@@ -18,10 +19,18 @@ const list = [
 ];
 
 export function colorsData() {
+  const existingTags = getTags();
   var auxArr = [];
   for (let i = 0; i < list.length; i++) {
     for (let j = 0; j < list[i].colors.length; j++) {
       auxArr.push(list[i].colors[j]);
+    }
+  }
+  for (let i = 0; i < existingTags?.length; i++) {
+    for (let j = 0; j < auxArr.length; j++) {
+      if (existingTags[i].color.toLowerCase() === auxArr[j].toLowerCase()) {
+        auxArr.splice(j, 1);
+      }
     }
   }
   return auxArr;

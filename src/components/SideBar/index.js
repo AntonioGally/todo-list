@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+//Scripts
+import { dataContext } from "../../context/dataContext";
 
 //Components
 import ModalTag from "../Modal";
@@ -8,7 +11,7 @@ import ModalTag from "../Modal";
 import { Container, Head, Body, Tag, Foot, AddIcon } from "./styles";
 
 const SideBar = (props) => {
-
+  const { tagList } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
   return (
     <>
@@ -18,9 +21,9 @@ const SideBar = (props) => {
             <h3>todo</h3>
           </Head>
           <Body>
-            {props.list?.length > 0 ? (
+            {tagList?.length > 0 ? (
               <>
-                {props.list.map((data, index) => (
+                {tagList.map((data, index) => (
                   <Tag color={data.color} key={index}>
                     {data.text}
                   </Tag>
@@ -40,7 +43,7 @@ const SideBar = (props) => {
       <ModalTag
         hideModal={() => setShowModal(false)}
         showModal={showModal}
-        tagList={props.list}
+        tagList={tagList}
         type="tag"
       />
     </>
