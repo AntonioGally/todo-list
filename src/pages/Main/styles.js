@@ -16,20 +16,10 @@ export const SideBarContent = styled.div`
   width: 100%;
 `;
 
-export const CardContent = styled.div`
-  padding: 6px;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-content: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-`;
-
 export const IconContent = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
+  position: absolute;
+  top: 0px;
+  right: 0px;  
 `;
 export const AddIcon = styled(Add)`
   width: 52px;
@@ -39,3 +29,14 @@ export const AddIcon = styled(Add)`
   flex-shrink: 0;
   cursor: pointer;
 `;
+
+export const CardContent = styled.div`
+  padding: 6px;
+  width: 100%;
+  display: flex;
+  align-content: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+`;
+
+

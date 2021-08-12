@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo } from "react";
 import { useForm } from "react-hook-form";
 
 //Scripts
@@ -7,7 +7,7 @@ import { colorsData } from "../../services/colors.js";
 //Components
 import { Modal } from "antd";
 import Message from "./message";
-
+import { toast } from "react-toastify";
 //Minor Components
 import {
   Navbar,
@@ -30,11 +30,12 @@ const ModalTodo = (props) => {
   const [tagSelector, setTagSelector] = useState([]);
   const [colorSelector, setColorSelector] = useState([]);
   const { tagList, setTagList } = useContext(dataContext);
+  const [selectorError, setSelectorError] = useState(false);
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset
+    reset,
   } = useForm();
 
   function handleTagClick(index) {
@@ -59,9 +60,16 @@ const ModalTodo = (props) => {
 
   function onSubmit(data) {
     if (props.type === "tag") {
+      var existingTag = false;
+      for (let i = 0; i < tagList.length; i++) {
+        if (tagList[i].text.toLowerCase() === data.title.toLowerCase()) {
+          toast("This tag already exists");
+          existingTag = true;
+        }
+      }
       if (colorSelector.length === 0) {
-        console.log("ADD UMA COR");
-      } else {
+        setSelectorError(true);
+      } else if (!existingTag) {
         var auxObj = {
           id: tagList.length + 1,
           color: colorsData()[colorSelector],
@@ -70,15 +78,19 @@ const ModalTodo = (props) => {
         var auxArr = tagList.slice();
         auxArr.push(auxObj);
         setTagList(auxArr);
+
+        setSelectorError(false);
+
+        handleCancel();
+        props.hideModal();
       }
     }
-    handleCancel();
-    props.hideModal();
   }
 
   function handleCancel() {
     setColorSelector([]);
     setTagSelector([]);
+    setSelectorError(false);
     reset();
   }
 
@@ -152,14 +164,15 @@ const ModalTodo = (props) => {
             <Title style={{ margin: 0 }}>
               {props.type === "todo" ? "Tags" : "Colors"}
             </Title>
+            {selectorError && <Message error="Color is required" />}
             {props.type === "todo" && (
               <SearchTag placeholder="Search your tag" />
             )}
           </TitleContent>
           {props.type === "todo" && (
             <TagContent>
-              {props.tagList.length <= 0 && <>You don't have any tags</>}
-              {props.tagList?.map((data, index) => (
+              {tagList.length <= 0 && <>You don't have any tags</>}
+              {tagList.map((data, index) => (
                 <Tag
                   key={index}
                   colorTag={data.color}
@@ -188,4 +201,4 @@ const ModalTodo = (props) => {
   );
 };
 
-export default ModalTodo;
+export default memo(ModalTodo);

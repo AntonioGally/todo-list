@@ -10,6 +10,7 @@ export const Navbar = styled.div`
     cursor: pointer;
   }
   > button {
+    cursor: pointer;
     border: none;
     outline: 0;
     border-radius: 6px;
@@ -83,36 +84,37 @@ export const Tag = styled.div`
   text-overflow: ellipsis;
   min-height: 30px;
   width: fit-content;
-  max-width: 80%;
   cursor: pointer;
   font-family: "Inter";
   font-style: normal;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 165%;
   color: var(--subTitle);
-  margin-top: 16px;
-  padding-left: 26px;
+  padding-left: 20px;
+  margin-right: 26px;
   position: relative;
   ::before {
     content: "";
     position: absolute;
     left: 0;
-    bottom: calc(50% - 8px);
+    bottom: calc(50% - 5px);
     width: 16px;
     height: 16px;
     border-radius: 50px;
-    background-color: ${(props) => props.tagColor};
+    background-color: ${(props) => props.colorTag};
   }
 `;
 
 export const Color = styled.div`
+  cursor: pointer;
   width: 22px;
   height: 22px;
   border-radius: 50%;
   padding: 3px;
   margin: 3px;
   background-color: ${(props) => props.color};
+  transition: all .3s ease-in;
   opacity: 0.3;
   ${(props) => {
     if (props.isSelected) {
