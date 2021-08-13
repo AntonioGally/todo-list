@@ -1,7 +1,7 @@
-import { card_list, tag_list } from "./api.js";
+// import { card_list, tag_list } from "./api.js";
 
 export function setTodos(cardListProps) {
-  localStorage.setItem("todos", JSON.stringify(cardListProps || card_list));
+  localStorage.setItem("todos", JSON.stringify(cardListProps));
   return true;
 }
 
@@ -11,7 +11,7 @@ export function getTodos() {
 }
 
 export function setTags(tagListProps) {
-  localStorage.setItem("tags", JSON.stringify(tagListProps || tag_list));
+  localStorage.setItem("tags", JSON.stringify(tagListProps));
   return true;
 }
 
@@ -22,4 +22,14 @@ export function getTags() {
 
 export function cleanStorage() {
   localStorage.clear();
+}
+
+export function shuffle(array) {
+  return array.sort(() => (Math.random() > 0.5 ? 1 : -1));
+}
+
+export function filterArr(query, arr) {
+  return arr.filter(function (el) {
+    return el.text.toLowerCase().indexOf(query.toLowerCase()) > -1;
+  });
 }

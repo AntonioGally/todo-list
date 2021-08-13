@@ -1,10 +1,34 @@
-import React, { memo } from "react";
-import { Checkbox } from "antd";
+import React, { useState, useContext } from "react";
+
+//Scripts
+import { dataContext } from "../../context/dataContext";
+
+//Components
+import ModalTag from "../Modal";
+// import { Checkbox } from "antd";
 
 //Minor components
-import { Container, Head, Body, Tag, Foot } from "./styles";
+import {
+  Container,
+  Head,
+  Body,
+  TagContent,
+  Tag,
+  DeleteIcon,
+  Foot,
+  AddIcon,
+} from "./styles";
 
 const SideBar = (props) => {
+  const { tagList, setTagList } = useContext(dataContext);
+  const [showModal, setShowModal] = useState(false);
+
+  function handleDelete(index) {
+    var newArr = tagList.slice();
+    newArr.splice(index, 1);
+    setTagList(newArr);
+  }
+
   return (
     <>
       <Container>
@@ -13,12 +37,19 @@ const SideBar = (props) => {
             <h3>todo</h3>
           </Head>
           <Body>
-            {props.list?.length > 0 ? (
+            {tagList?.length > 0 ? (
               <>
-                {props.list.map((data, index) => (
-                  <Tag color={data.color} key={index}>
-                    {data.text}
-                  </Tag>
+                {tagList.map((data, index) => (
+                  <TagContent>
+                    <Tag color={data.color} key={index}>
+                      {data.text}
+                    </Tag>
+                    <DeleteIcon
+                      onClick={() => {
+                        handleDelete(index);
+                      }}
+                    />
+                  </TagContent>
                 ))}
               </>
             ) : (
@@ -27,11 +58,18 @@ const SideBar = (props) => {
           </Body>
         </div>
         <Foot>
-          <Checkbox>Hide Done Tasks</Checkbox>
+          <AddIcon onClick={() => setShowModal(true)} />
+          <span onClick={() => setShowModal(true)}>Add a new tag</span>
+          {/* <Checkbox>Hide Done Tasks</Checkbox> */}
         </Foot>
       </Container>
+      <ModalTag
+        hideModal={() => setShowModal(false)}
+        showModal={showModal}
+        type="tag"
+      />
     </>
   );
 };
 
-export default memo(SideBar);
+export default SideBar;

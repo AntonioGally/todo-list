@@ -16,7 +16,7 @@ const CardContainer = () => {
           ))}
         </>
       ) : (
-        <h1>It sims that you dont have any todo</h1>
+        <h1 style={{margin: 0}}>It sims that you dont have any todo</h1>
       )}
     </>
   );
