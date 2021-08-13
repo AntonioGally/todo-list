@@ -104,6 +104,12 @@ export const Tag = styled.div`
     border-radius: 50px;
     background-color: ${(props) => props.colorTag};
   }
+  opacity: 0.5;
+  ${(props) => {
+    if (props.isSelected) {
+      return "opacity: 1";
+    }
+  }}
 `;
 
 export const Color = styled.div`

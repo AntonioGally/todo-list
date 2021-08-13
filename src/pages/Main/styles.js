@@ -17,9 +17,9 @@ export const SideBarContent = styled.div`
 `;
 
 export const IconContent = styled.div`
-  position: absolute;
-  top: 0px;
-  right: 0px;  
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 `;
 export const AddIcon = styled(Add)`
   width: 52px;
@@ -38,5 +38,3 @@ export const CardContent = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
 `;
-
-

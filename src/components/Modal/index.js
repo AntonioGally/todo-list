@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 //Scripts
 import { dataContext } from "../../context/dataContext";
 import { colorsData } from "../../services/colors.js";
+import { filterArr } from "../../services/utils.js";
 //Components
 import { Modal } from "antd";
 import Message from "./message";
@@ -29,8 +30,10 @@ import "./styles.css";
 const ModalTodo = (props) => {
   const [tagSelector, setTagSelector] = useState([]);
   const [colorSelector, setColorSelector] = useState([]);
-  const { tagList, setTagList } = useContext(dataContext);
+  const { tagList, setTagList, todoList, setTodoList } =
+    useContext(dataContext);
   const [selectorError, setSelectorError] = useState(false);
+  const [searchTag, setSearchTag] = useState("");
   const {
     register,
     formState: { errors },
@@ -40,7 +43,11 @@ const ModalTodo = (props) => {
 
   function handleTagClick(index) {
     var auxArr = tagSelector.slice();
-    auxArr.push(index);
+    if (auxArr.indexOf(index) > -1) {
+      auxArr.splice(auxArr.indexOf(index), 1);
+    } else {
+      auxArr.push(index);
+    }
     setTagSelector(auxArr);
   }
   function handleColorClick(index) {
@@ -62,7 +69,10 @@ const ModalTodo = (props) => {
     if (props.type === "tag") {
       var existingTag = false;
       for (let i = 0; i < tagList.length; i++) {
-        if (tagList[i].text.toLowerCase() === data.title.toLowerCase()) {
+        if (
+          tagList[i].text.replace(/\s+/g, "").toLowerCase() ===
+          data.title.replace(/\s+/g, "").toLowerCase()
+        ) {
           toast("This tag already exists");
           existingTag = true;
         }
@@ -71,7 +81,6 @@ const ModalTodo = (props) => {
         setSelectorError(true);
       } else if (!existingTag) {
         var auxObj = {
-          id: tagList.length + 1,
           color: colorsData()[colorSelector],
           text: data.title,
         };
@@ -84,9 +93,52 @@ const ModalTodo = (props) => {
         handleCancel();
         props.hideModal();
       }
+    } else if (props.type === "todo") {
+      var existingTodo = false;
+      for (let i = 0; i < todoList.length; i++) {
+        if (
+          todoList[i].title.replace(/\s+/g, "").toLowerCase() ===
+          data.title.replace(/\s+/g, "").toLowerCase()
+        ) {
+          toast("This todo already exists");
+          existingTodo = true;
+        }
+      }
+      if (tagSelector.length <= 0) {
+        setSelectorError(true);
+      } else if (!existingTodo) {
+        var tagArr = [];
+        for (let i = 0; i < tagSelector.length; i++) {
+          tagArr.push(tagList[tagSelector[i]]);
+        }
+        var todoObj = {
+          title: data.title,
+          text: data.description,
+          tags: tagArr,
+          done: false,
+        };
+        var todoArr = todoList.slice();
+        todoArr.push(todoObj);
+        setTodoList(todoArr);
+
+        setSelectorError(false);
+
+        handleCancel();
+        props.hideModal();
+      }
     }
   }
-
+  // var obj = {
+  //   id: 0,
+  //   title: "The first task title",
+  //   text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ante quam, blandit id mollis nec, scelerisque vel augue. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed ac lectus aliquet, lobortis dui condimentum, fringilla turpis",
+  //   tags: [
+  //     { name: "work", color: "#69665C" },
+  //     { name: "study", color: "#B2AFA1" },
+  //     { name: "college", color: "#D2CEFF" },
+  //   ],
+  //   done: false,
+  // };
   function handleCancel() {
     setColorSelector([]);
     setTagSelector([]);
@@ -121,7 +173,7 @@ const ModalTodo = (props) => {
               placeholder="add a title..."
               {...register("title", {
                 required: true,
-                pattern: /^[A-Za-z0-9]+$/,
+                pattern: /^[A-Za-z0-9\s?]+$/,
                 maxLength: 70,
               })}
             />
@@ -143,16 +195,16 @@ const ModalTodo = (props) => {
                 placeholder="add a description..."
                 {...register("description", {
                   required: true,
-                  pattern: /^[A-Za-z0-9]+$/,
+                  // pattern: /^[A-Za-z0-9\s?]+$/,
                   maxLength: 300,
                 })}
               />
               {errors.description?.type === "required" && (
                 <Message error="Description is required" />
               )}
-              {errors.description?.type === "pattern" && (
+              {/* {errors.description?.type === "pattern" && (
                 <Message error="Description isn't vallid" />
-              )}
+              )} */}
               {errors.description?.type === "maxLength" && (
                 <Message error="Max length is 300 caracters" />
               )}
@@ -164,19 +216,33 @@ const ModalTodo = (props) => {
             <Title style={{ margin: 0 }}>
               {props.type === "todo" ? "Tags" : "Colors"}
             </Title>
-            {selectorError && <Message error="Color is required" />}
+            {selectorError && (
+              <Message
+                error={
+                  props.type === "todo"
+                    ? "Tags is required"
+                    : "Colors is required"
+                }
+              />
+            )}
             {props.type === "todo" && (
-              <SearchTag placeholder="Search your tag" />
+              <SearchTag
+                placeholder="Search your tag"
+                onChange={(e) => {
+                  setSearchTag(e.target.value);
+                }}
+              />
             )}
           </TitleContent>
           {props.type === "todo" && (
             <TagContent>
               {tagList.length <= 0 && <>You don't have any tags</>}
-              {tagList.map((data, index) => (
+              {filterArr(searchTag, tagList).map((data, index) => (
                 <Tag
                   key={index}
                   colorTag={data.color}
                   onClick={() => handleTagClick(index)}
+                  isSelected={tagSelector.indexOf(index) > -1}
                 >
                   {data.text}
                 </Tag>
