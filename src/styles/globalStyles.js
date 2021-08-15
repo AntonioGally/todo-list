@@ -17,7 +17,7 @@ html {
  * Remove the margin in all browsers.
  */
 body {
-  background-color: #fff;
+  background-color: #f9f9f9;
   margin: 0;
   font-family: "Inter"
 }

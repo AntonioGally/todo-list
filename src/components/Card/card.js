@@ -17,21 +17,37 @@ import {
 import { dataContext } from "../../context/dataContext.js";
 
 //Components
-import { Checkbox, Col } from "antd";
+import { Checkbox, Col, Dropdown, Menu } from "antd";
+
 const Card = ({ dataProps, index }) => {
   const { todoList, setTodoList } = useContext(dataContext);
-  const handleDataChange = () => {
-    var auxArr = todoList.slice();
-    auxArr[index].done = !auxArr[index].done;
-    setTodoList(auxArr);
+  function deleteCard(indexProps) {
+    var newArr = todoList.slice();
+    newArr.splice(indexProps, 1);
+    setTodoList(newArr);
+  }
+  function handleDoneClick() {
+    var newArr = todoList.slice();
+    newArr[index].done = !newArr[index].done;
+    setTodoList(newArr);
+  }
+  const menuOverlay = () => {
+    return (
+      <Menu>
+        <Menu.Item>Edit</Menu.Item>
+        <Menu.Item onClick={() => deleteCard(index)}>Delete</Menu.Item>
+      </Menu>
+    );
   };
   return (
     <>
       <Col sm={24} md={12} lg={12}>
         <Container>
           <Head>
-            <Title>{dataProps.title}</Title>
-            <MenuIcon />
+            <Title isDone={dataProps.done}>{dataProps.title}</Title>,
+            <Dropdown overlay={menuOverlay} trigger={["click"]}>
+              <MenuIcon />
+            </Dropdown>
           </Head>
           <Body>
             <Text isDone={dataProps.done}>{dataProps.text}</Text>
@@ -44,7 +60,7 @@ const Card = ({ dataProps, index }) => {
             </TagContent>
             <Checkbox
               checked={dataProps.done}
-              onChange={(e) => handleDataChange()}
+              onChange={(e) => handleDoneClick()}
             >
               Done
             </Checkbox>

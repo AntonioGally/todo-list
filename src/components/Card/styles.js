@@ -28,6 +28,7 @@ export const Title = styled.h3`
   line-height: 165%;
   color: var(--title);
   margin: 0;
+  text-decoration: ${({ isDone }) => isDone && "line-through"};
 `;
 export const MenuIcon = styled(DotsHorizontalRounded)`
   height: 24px;
