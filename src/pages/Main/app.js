@@ -17,7 +17,7 @@ import { dataContext } from "../../context/dataContext.js";
 import SideBar from "../../components/SideBar";
 import CardContainer from "../../components/Card";
 import DataContextProvider from "../../context/dataContext.js";
-import ModalTodo from "../../components/Modal";
+import ModalTodo from "../../components/Modal/modalTodo";
 
 import { ToastContainer } from "react-toastify";
 
@@ -46,7 +46,6 @@ const App = () => {
         <ModalTodo
           hideModal={() => setShowModal(false)}
           showModal={showModal}
-          type="todo"
         />
       </DataContextProvider>
     </>

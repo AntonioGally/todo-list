@@ -4,7 +4,7 @@ import React, { useState, useContext } from "react";
 import { dataContext } from "../../context/dataContext";
 
 //Components
-import ModalTag from "../Modal";
+import ModalTag from "../Modal/modalTag";
 // import { Checkbox } from "antd";
 
 //Minor components
@@ -19,7 +19,7 @@ import {
   AddIcon,
 } from "./styles";
 
-const SideBar = (props) => {
+const SideBar = () => {
   const { tagList, setTagList } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
 
@@ -63,11 +63,7 @@ const SideBar = (props) => {
           {/* <Checkbox>Hide Done Tasks</Checkbox> */}
         </Foot>
       </Container>
-      <ModalTag
-        hideModal={() => setShowModal(false)}
-        showModal={showModal}
-        type="tag"
-      />
+      <ModalTag hideModal={() => setShowModal(false)} showModal={showModal} />
     </>
   );
 };
