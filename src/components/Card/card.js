@@ -74,8 +74,10 @@ const Card = ({ dataProps, index }) => {
       <ModalEdit
         hideModal={() => setShowModal(false)}
         showModal={showModal}
-        tagListProps={dataProps.tags}
-        data={dataProps}
+        defaultData={{
+          content: dataProps,
+          tagList: dataProps.tags,
+        }}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useContext, memo } from "react";
+import React, { useState, useContext, memo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 //Scripts
@@ -25,7 +25,7 @@ import {
 //Style
 import "./styles.css";
 
-const ModalTodo = ({ hideModal, showModal }) => {
+const ModalTodo = ({ hideModal, showModal, defaultData }) => {
   const [tagSelector, setTagSelector] = useState([]);
   const { tagList, todoList, setTodoList } = useContext(dataContext);
   const [selectorError, setSelectorError] = useState(false);
@@ -38,10 +38,8 @@ const ModalTodo = ({ hideModal, showModal }) => {
   } = useForm();
 
   function handleTagClick(index) {
-    console.log(tagSelector);
     var auxArr = tagSelector.slice();
     if (auxArr.indexOf(index) > -1) {
-      console.log("açsdjfnasçidf");
       auxArr.splice(auxArr.indexOf(index), 1);
     } else {
       auxArr.push(index);
@@ -51,19 +49,30 @@ const ModalTodo = ({ hideModal, showModal }) => {
 
   function onSubmit(data) {
     var existingTodo = false;
-    for (let i = 0; i < todoList.length; i++) {
-      if (
-        todoList[i].title.replace(/\s+/g, "").toLowerCase() ===
-        data.title.replace(/\s+/g, "").toLowerCase()
-      ) {
-        toast("This todo already exists");
-        existingTodo = true;
+    var indexTodo;
+
+    if (defaultData.content.title !== data.title) {
+      // If user change the title, verify title existence
+      for (let i = 0; i < todoList.length; i++) {
+        if (
+          todoList[i].title.replace(/\s+/g, "").toLowerCase() ===
+          data.title.replace(/\s+/g, "").toLowerCase()
+        ) {
+          toast("This todo already exists");
+          existingTodo = true;
+        }
       }
     }
+
     if (tagSelector.length <= 0) {
       setSelectorError(true);
     } else if (!existingTodo) {
       var tagArr = [];
+      for (let i = 0; i < todoList.length; i++) {
+        if (todoList[i].id === defaultData.content.id) {
+          indexTodo = i;
+        }
+      }
       for (let i = 0; i < tagSelector.length; i++) {
         tagArr.push(tagList[tagSelector[i]]);
       }
@@ -72,9 +81,10 @@ const ModalTodo = ({ hideModal, showModal }) => {
         text: data.description,
         tags: tagArr,
         done: false,
+        id: defaultData.content.id,
       };
       var todoArr = todoList.slice();
-      todoArr.push(todoObj);
+      todoArr[indexTodo] = todoObj;
       setTodoList(todoArr);
 
       setSelectorError(false);
@@ -89,6 +99,22 @@ const ModalTodo = ({ hideModal, showModal }) => {
     setSelectorError(false);
     reset();
   }
+
+  useEffect(() => {
+    var existingTagsArr = filterArr(searchTag, tagList).slice();
+    var auxArr = [];
+    for (let i = 0; i < defaultData.tagList.length; i++) {
+      for (let j = 0; j < existingTagsArr.length; j++) {
+        if (
+          defaultData.tagList[i].text.replace(/\s+/g, "").toLowerCase() ===
+          existingTagsArr[j].text.replace(/\s+/g, "").toLowerCase()
+        ) {
+          auxArr.push(j);
+        }
+      }
+    }
+    setTagSelector(auxArr);
+  }, [defaultData]);
 
   return (
     <Modal
@@ -106,14 +132,14 @@ const ModalTodo = ({ hideModal, showModal }) => {
         <Navbar>
           <span onClick={() => hideModal()}>Cancel</span>
           <button type="submit">
-            <span>Add</span>
+            <span>Edit</span>
           </button>
         </Navbar>
         <Body>
           <div>
             <Title>Title</Title>
             <Input
-              // defaultValue={data?.title}
+              defaultValue={defaultData.content.title}
               type="text"
               placeholder="add a title..."
               {...register("title", {
@@ -135,6 +161,7 @@ const ModalTodo = ({ hideModal, showModal }) => {
           <div>
             <Title>Description</Title>
             <TextArea
+              defaultValue={defaultData.content.text}
               type="text"
               placeholder="add a description..."
               {...register("description", {

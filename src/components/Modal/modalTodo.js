@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 //Scripts
 import { dataContext } from "../../context/dataContext";
-import { filterArr } from "../../services/utils.js";
+import { filterArr, idGenerator } from "../../services/utils.js";
 //Components
 import { Modal } from "antd";
 import Message from "./message";
@@ -38,10 +38,8 @@ const ModalTodo = ({ hideModal, showModal }) => {
   } = useForm();
 
   function handleTagClick(index) {
-    console.log(tagSelector);
     var auxArr = tagSelector.slice();
     if (auxArr.indexOf(index) > -1) {
-      console.log("açsdjfnasçidf");
       auxArr.splice(auxArr.indexOf(index), 1);
     } else {
       auxArr.push(index);
@@ -72,6 +70,7 @@ const ModalTodo = ({ hideModal, showModal }) => {
         text: data.description,
         tags: tagArr,
         done: false,
+        id: idGenerator(12),
       };
       var todoArr = todoList.slice();
       todoArr.push(todoObj);
