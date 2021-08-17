@@ -17,7 +17,7 @@ html {
  * Remove the margin in all browsers.
  */
 body {
-  background-color: #fff;
+  background-color: #f9f9f9;
   margin: 0;
   font-family: "Inter"
 }
@@ -238,5 +238,12 @@ template {
  */
 [hidden] {
   display: none;
+}
+:root {
+  --title: #69665C;
+  --subTitle: #B2AFA1;
+  --cardBackground: #FFF9DE;
+  --buttonBackground: #69665C;
+  --buttonFont: #FFF;
 }
 `;
