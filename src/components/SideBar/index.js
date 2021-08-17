@@ -20,13 +20,25 @@ import {
 } from "./styles";
 
 const SideBar = () => {
-  const { tagList, setTagList } = useContext(dataContext);
+  const { tagList, setTagList, todoList, setTodoList } =
+    useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
 
   function handleDelete(index) {
+    var deletedTagID = tagList[index].id;
     var newArr = tagList.slice();
     newArr.splice(index, 1);
     setTagList(newArr);
+    for (let i = 0; i < todoList.length; i++) {
+      //Removing the deleted tag from all todo's
+      for (let j = 0; j < todoList[i].tags.length; j++) {
+        if (todoList[i].tags[j].id === deletedTagID) {
+          var newTodo = todoList.slice();
+          newTodo[i].tags.splice(j, 1);
+          setTodoList(newTodo);
+        }
+      }
+    }
   }
 
   return (

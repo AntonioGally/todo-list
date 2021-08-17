@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 //Scripts
 import { dataContext } from "../../context/dataContext";
 import { colorsData } from "../../services/colors.js";
+import { idGenerator } from "../../services/utils.js";
 //Components
 import { Modal } from "antd";
 import Message from "./message";
@@ -67,6 +68,7 @@ const ModalTag = ({ hideModal, showModal }) => {
       var auxObj = {
         color: colorsData()[colorSelector],
         text: data.title,
+        id: idGenerator(5),
       };
       var auxArr = tagList.slice();
       auxArr.push(auxObj);

@@ -67,7 +67,7 @@ const ModalTodo = ({ hideModal, showModal }) => {
       }
       var todoObj = {
         title: data.title,
-        text: data.description,
+        text: data.description || "",
         tags: tagArr,
         done: false,
         id: idGenerator(12),
@@ -137,14 +137,14 @@ const ModalTodo = ({ hideModal, showModal }) => {
               type="text"
               placeholder="add a description..."
               {...register("description", {
-                required: true,
+                // required: true,
                 // pattern: /^[A-Za-z0-9\s?]+$/,
                 maxLength: 300,
               })}
             />
-            {errors.description?.type === "required" && (
+            {/* {errors.description?.type === "required" && (
               <Message error="Description is required" />
-            )}
+            )} */}
             {/* {errors.description?.type === "pattern" && (
                 <Message error="Description isn't vallid" />
               )} */}
