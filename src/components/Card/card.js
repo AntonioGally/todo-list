@@ -1,4 +1,4 @@
-import React, { useState, useContext, memo } from "react";
+import React, { useState, useContext, memo, useEffect } from "react";
 
 //Minor Components
 import {
@@ -23,10 +23,14 @@ import ModalEdit from "../Modal/modalEdit";
 const Card = ({ dataProps, index }) => {
   const { todoList, setTodoList } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
+  const [opacity, setOpacity] = useState(0);
   function deleteCard(indexProps) {
-    var newArr = todoList.slice();
-    newArr.splice(indexProps, 1);
-    setTodoList(newArr);
+    setOpacity(0);
+    setTimeout(() => {
+      var newArr = todoList.slice();
+      newArr.splice(indexProps, 1);
+      setTodoList(newArr);
+    }, 250);
   }
   function handleDoneClick() {
     var newArr = todoList.slice();
@@ -43,10 +47,16 @@ const Card = ({ dataProps, index }) => {
     );
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setOpacity(1);
+    }, 150);
+  }, []);
+
   return (
     <>
       <Col sm={24} md={12} lg={12}>
-        <Container>
+        <Container style={{ opacity: opacity, transition: "all .25s ease" }}>
           <Head>
             <Title isDone={dataProps.done}>{dataProps.title}</Title>,
             <Dropdown overlay={menuOverlay} trigger={["click"]}>

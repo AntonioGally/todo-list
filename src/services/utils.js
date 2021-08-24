@@ -28,8 +28,13 @@ export function shuffle(array) {
   return array.sort(() => (Math.random() > 0.5 ? 1 : -1));
 }
 
-export function filterArr(query, arr) {
-  return arr.filter(function (el) {
+/**
+ * @param {string} query
+ * @param {Array} array
+ */
+
+export function filterArr(query, array) {
+  return array.filter(function (el) {
     return el.text.toLowerCase().indexOf(query.toLowerCase()) > -1;
   });
 }
