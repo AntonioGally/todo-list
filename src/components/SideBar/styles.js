@@ -49,6 +49,23 @@ export const Body = styled.div`
     background: #555;
   }
 `;
+
+export const SearchContent = styled.div`
+  width: 85%;
+  display: flex;
+  margin-top: 16px;
+`;
+export const Input = styled.input`
+  width: 100%;
+  padding: 12px;
+  border: none;
+  outline: 0;
+  color: var(--subTitle);
+  font-size: 15px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+`;
+
 export const TagContent = styled.div`
   width: 85%;
   display: flex;
