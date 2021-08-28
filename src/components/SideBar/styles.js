@@ -57,13 +57,14 @@ export const SearchContent = styled.div`
 `;
 export const Input = styled.input`
   width: 100%;
-  padding: 12px;
+  padding: 12px 12px 12px 0px;
   border: none;
   outline: 0;
   color: var(--subTitle);
   font-size: 15px;
   border-radius: 4px;
   margin-bottom: 6px;
+  background-color: transparent;
 `;
 
 export const TagContent = styled.div`

@@ -30,6 +30,7 @@ const Card = ({ dataProps, index }) => {
       var newArr = todoList.slice();
       newArr.splice(indexProps, 1);
       setTodoList(newArr);
+      setOpacity(1);
     }, 250);
   }
   function handleDoneClick() {

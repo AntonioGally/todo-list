@@ -42,7 +42,7 @@ const SideBar = () => {
                     value={searchValue}
                   />
                 </SearchContent>
-                {filterArr(searchValue, tagList).map((data, index) => (
+                {filterArr(searchValue, tagList, "text").map((data, index) => (
                   <TagComponent data={data} index={index} key={index} />
                 ))}
               </>
@@ -54,7 +54,6 @@ const SideBar = () => {
         <Foot>
           <AddIcon onClick={() => setShowModal(true)} />
           <span onClick={() => setShowModal(true)}>Add a new tag</span>
-          {/* <Checkbox>Hide Done Tasks</Checkbox> */}
         </Foot>
       </Container>
       <ModalTag hideModal={() => setShowModal(false)} showModal={showModal} />

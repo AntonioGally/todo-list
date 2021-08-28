@@ -50,6 +50,7 @@ const TagComponent = ({ data, index }) => {
           }
         }
       }
+      setOpacity(1);
     }, 250);
   }
 
@@ -69,8 +70,9 @@ const TagComponent = ({ data, index }) => {
       >
         <Tag color={data.color}>{data.text}</Tag>
         <DeleteIcon
-          onClick={() => {
+          onClick={(e) => {
             handleDelete(index);
+            e.stopPropagation();
           }}
         />
       </TagContent>
