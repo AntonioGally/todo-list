@@ -10,7 +10,7 @@ export default function DataContextProvider({ children }) {
   const [tagList, setTagList] = useState([]);
 
   const [tagFilter, setTagFilter] = useState([]);
-  const [todoFilter, setTodoFilter] = useState({ title: "", tag: [] });
+  const [todoFilter, setTodoFilter] = useState({ title: "" });
 
   useEffect(() => {
     //Sync the local storage
