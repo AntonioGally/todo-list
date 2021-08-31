@@ -9,6 +9,9 @@ export default function DataContextProvider({ children }) {
   const [todoList, setTodoList] = useState([]);
   const [tagList, setTagList] = useState([]);
 
+  const [tagFilter, setTagFilter] = useState([]);
+  const [todoFilter, setTodoFilter] = useState({ title: "" });
+
   useEffect(() => {
     //Sync the local storage
     if (todoList.length > 0) setTodos(todoList);
@@ -28,10 +31,18 @@ export default function DataContextProvider({ children }) {
     }
   }, []);
 
-
   return (
     <dataContext.Provider
-      value={{ todoList, tagList, setTodoList, setTagList }}
+      value={{
+        todoList,
+        tagList,
+        setTodoList,
+        setTagList,
+        tagFilter,
+        setTagFilter,
+        todoFilter,
+        setTodoFilter,
+      }}
     >
       {children}
     </dataContext.Provider>

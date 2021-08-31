@@ -19,7 +19,8 @@ export const SideBarContent = styled.div`
 export const IconContent = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 `;
 export const AddIcon = styled(Add)`
   width: 52px;
@@ -37,4 +38,14 @@ export const CardContent = styled.div`
   align-content: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
+`;
+
+export const Input = styled.input`
+  width: 30%;
+  padding: 14px;
+  border: none;
+  outline: 0;
+  color: var(--subTitle);
+  font-size: 18px;
+  background-color: transparent;
 `;

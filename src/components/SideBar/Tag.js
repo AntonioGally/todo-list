@@ -12,8 +12,14 @@ const TagComponent = ({ data, index }) => {
   const [padding, setPadding] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(undefined);
 
-  const { tagList, setTagList, todoList, setTodoList } =
-    useContext(dataContext);
+  const {
+    tagList,
+    setTagList,
+    todoList,
+    setTodoList,
+    tagFilter,
+    setTagFilter,
+  } = useContext(dataContext);
 
   useEffect(() => {
     setTimeout(() => {
@@ -22,14 +28,24 @@ const TagComponent = ({ data, index }) => {
   }, []);
 
   function handleSelect(indexProps) {
+    var auxTagArr = tagFilter.slice();
     if (indexProps === selectedIndex) {
       setSelectedIndex(undefined);
       setBackground("#f9f9f9");
       setPadding(0);
+      for (let i = 0; i < tagFilter.length; i++) {
+        if (tagFilter[i].id === tagList[indexProps].id) {
+          auxTagArr.splice(i, 1);
+          setTagFilter(auxTagArr);
+          return true;
+        }
+      }
     } else {
       setSelectedIndex(indexProps);
       setBackground("var(--cardBackground)");
       setPadding(10);
+      auxTagArr.push(tagList[indexProps]);
+      setTagFilter(auxTagArr);
     }
   }
 
@@ -50,6 +66,7 @@ const TagComponent = ({ data, index }) => {
           }
         }
       }
+      setOpacity(1);
     }, 250);
   }
 
@@ -69,8 +86,9 @@ const TagComponent = ({ data, index }) => {
       >
         <Tag color={data.color}>{data.text}</Tag>
         <DeleteIcon
-          onClick={() => {
+          onClick={(e) => {
             handleDelete(index);
+            e.stopPropagation();
           }}
         />
       </TagContent>

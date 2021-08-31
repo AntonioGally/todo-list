@@ -33,9 +33,10 @@ export function shuffle(array) {
  * @param {Array} array
  */
 
-export function filterArr(query, array) {
+export function filterArr(query = "", array, param="text") {
+  // return []
   return array.filter(function (el) {
-    return el.text.toLowerCase().indexOf(query.toLowerCase()) > -1;
+    return el[param].toLowerCase().indexOf(query.toLowerCase()) > -1;
   });
 }
 
