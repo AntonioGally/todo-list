@@ -57,7 +57,10 @@ const Card = ({ dataProps, index }) => {
   return (
     <>
       <Col sm={24} md={12} lg={12}>
-        <Container style={{ opacity: opacity, transition: "all .25s ease" }}>
+        <Container
+          style={{ opacity: opacity, transition: "all .25s ease" }}
+          isDone={dataProps.done}
+        >
           <Head>
             <Title isDone={dataProps.done}>{dataProps.title}</Title>,
             <Dropdown overlay={menuOverlay} trigger={["click"]}>

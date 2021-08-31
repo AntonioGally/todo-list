@@ -6,13 +6,17 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* margin: 6px; */
   padding: 12px;
   background-color: var(--cardBackground);
   border-radius: 6px;
   width: 95%;
-  margin: 6px auto;
+  margin: 6px 0;
   height: fit-content;
+  ${(props) => {
+    if (props.isDone) {
+      return 'opacity: 0.5 !important';
+    }
+  }}
 `;
 export const Head = styled.div`
   width: 100%;
@@ -59,6 +63,25 @@ export const Foot = styled.div`
   justify-content: space-between;
 `;
 export const TagContent = styled.div`
+  ::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
   max-width: 90%;
   overflow-x: auto;
   display: flex;
@@ -70,6 +93,7 @@ export const Tag = styled.div`
   height: 24px;
   margin-right: 6px;
   border-radius: 50%;
+  flex-shrink: 0;
   background-color: ${(props) => {
     return props.color;
   }};
