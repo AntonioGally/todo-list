@@ -57,6 +57,27 @@ export const CardContent = styled.div`
   align-content: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
+  max-height: 87vh;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 export const Input = styled.input`
@@ -67,4 +88,7 @@ export const Input = styled.input`
   color: var(--subTitle);
   font-size: 18px;
   background-color: transparent;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
