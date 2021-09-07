@@ -1,6 +1,7 @@
 import styled from "styled-components";
 //Icons
 import { Add } from "@styled-icons/fluentui-system-filled/Add";
+import { MenuAltLeft } from "@styled-icons/boxicons-regular/MenuAltLeft";
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -8,6 +9,20 @@ export const Container = styled.div`
   display: flex;
   align-content: center;
   padding: 32px;
+
+  @media (max-width: 768px) {
+    max-height: 100%;
+    flex-direction: column;
+    padding: 12px;
+  }
+`;
+
+export const MenuIcon = styled(MenuAltLeft)`
+  width: 24px;
+  height: 24px;
+  color: black;
+  fill: black;
+  flex-shrink: 0;
 `;
 
 export const SideBarContent = styled.div`
@@ -29,6 +44,10 @@ export const AddIcon = styled(Add)`
   fill: var(--subTitle);
   flex-shrink: 0;
   cursor: pointer;
+  @media (max-width: 768px) {
+    width: 34px;
+    height: 34px;
+  }
 `;
 
 export const CardContent = styled.div`
@@ -38,6 +57,27 @@ export const CardContent = styled.div`
   align-content: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
+  max-height: 87vh;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 export const Input = styled.input`
@@ -48,4 +88,7 @@ export const Input = styled.input`
   color: var(--subTitle);
   font-size: 18px;
   background-color: transparent;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;

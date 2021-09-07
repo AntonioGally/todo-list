@@ -163,11 +163,12 @@ const ModalTodo = ({ hideModal, showModal, defaultData }) => {
             <TextArea
               defaultValue={defaultData.content.text}
               type="text"
+              rows={5}
               placeholder="add a description..."
               {...register("description", {
-                required: true,
+                // required: true,
                 // pattern: /^[A-Za-z0-9\s?]+$/,
-                maxLength: 300,
+                maxLength: 500,
               })}
             />
             {errors.description?.type === "required" && (

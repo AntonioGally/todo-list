@@ -12,9 +12,12 @@ export const Container = styled.div`
   width: 95%;
   margin: 6px 0;
   height: fit-content;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
   ${(props) => {
     if (props.isDone) {
-      return 'opacity: 0.5 !important';
+      return "opacity: 0.5 !important";
     }
   }}
 `;

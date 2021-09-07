@@ -36,19 +36,23 @@ export const Input = styled.input`
   margin-top: 5px;
   width: 100%;
   font-size: 15px;
-  padding-left: 16px;
+  padding: 8px 0px 8px 6px;
   color: var(--subTitle);
   border: none;
   outline: 0;
+  background: #f6f6f6;
+  border-radius: 6px;
 `;
 export const TextArea = styled.textarea`
   margin-top: 5px;
   width: 100%;
   font-size: 15px;
-  padding-left: 16px;
+  padding-left: 6px;
   color: var(--subTitle);
   border: none;
   outline: 0;
+  background: #f6f6f6;
+  border-radius: 6px;
 `;
 export const Footer = styled.div`
   width: 100%;
@@ -120,7 +124,7 @@ export const Color = styled.div`
   padding: 3px;
   margin: 3px;
   background-color: ${(props) => props.color};
-  transition: all .3s ease-in;
+  transition: all 0.3s ease-in;
   opacity: 0.3;
   ${(props) => {
     if (props.isSelected) {
