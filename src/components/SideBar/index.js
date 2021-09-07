@@ -1,13 +1,14 @@
 import React, { useState, useContext } from "react";
 
+//Context
+import { dataContext } from "../../context/dataContext.js";
+
 //Scripts
-import { dataContext } from "../../context/dataContext";
 import { filterArr } from "../../services/utils.js";
 
 //Components
 import ModalTag from "../Modal/modalTag";
 import TagComponent from "./Tag";
-// import { Checkbox } from "antd";
 
 //Minor components
 import {

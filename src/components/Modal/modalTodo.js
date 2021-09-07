@@ -139,7 +139,7 @@ const ModalTodo = ({ hideModal, showModal }) => {
               {...register("description", {
                 // required: true,
                 // pattern: /^[A-Za-z0-9\s?]+$/,
-                maxLength: 300,
+                maxLength: 500,
               })}
             />
             {/* {errors.description?.type === "required" && (

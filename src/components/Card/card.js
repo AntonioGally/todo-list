@@ -1,5 +1,9 @@
 import React, { useState, useContext, memo, useEffect } from "react";
 
+import parse from 'html-react-parser';
+
+import "./parsedTags.css"
+
 //Minor Components
 import {
   Container,
@@ -68,7 +72,7 @@ const Card = ({ dataProps, index }) => {
             </Dropdown>
           </Head>
           <Body>
-            <Text isDone={dataProps.done}>{dataProps.text}</Text>
+            <Text isDone={dataProps.done}>{parse(dataProps.text)}</Text>
           </Body>
           <Foot>
             <TagContent>
