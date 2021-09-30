@@ -1,4 +1,8 @@
-import React, { useState, useContext, memo } from "react";
+import React, { useState, useContext, memo, useEffect } from "react";
+
+import parse from "html-react-parser";
+
+import "./parsedTags.css";
 
 //Minor Components
 import {
@@ -23,10 +27,24 @@ import ModalEdit from "../Modal/modalEdit";
 const Card = ({ dataProps, index }) => {
   const { todoList, setTodoList } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
-  function deleteCard(indexProps) {
-    var newArr = todoList.slice();
-    newArr.splice(indexProps, 1);
-    setTodoList(newArr);
+  const [opacity, setOpacity] = useState(0);
+
+  function deleteCard() {
+    setOpacity(0);
+    setTimeout(() => {
+      var newArr = todoList.slice();
+      for (let i = 0; i < newArr.length; i++) {
+        if (newArr[i].id === dataProps.id) {
+          newArr.splice(i, 1);
+        }
+      }
+      if (newArr.length === 0) {
+        setTodoList(null);
+      } else {
+        setTodoList(newArr);
+      }
+      setOpacity(1);
+    }, 250);
   }
   function handleDoneClick() {
     var newArr = todoList.slice();
@@ -38,23 +56,35 @@ const Card = ({ dataProps, index }) => {
     return (
       <Menu>
         <Menu.Item onClick={() => setShowModal(true)}>Edit</Menu.Item>
-        <Menu.Item onClick={() => deleteCard(index)}>Delete</Menu.Item>
+        <Menu.Item onClick={() => deleteCard()}>Delete</Menu.Item>
       </Menu>
     );
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setOpacity(1);
+    }, 150);
+  }, []);
+
   return (
     <>
       <Col sm={24} md={12} lg={12}>
-        <Container>
+        <Container
+          style={{ opacity: opacity, transition: "all .25s ease" }}
+          isDone={dataProps.done}
+        >
           <Head>
-            <Title isDone={dataProps.done}>{dataProps.title}</Title>,
+            <Title isDone={dataProps.done}>
+              {dataProps.title}
+              <span>{dataProps.date}</span>
+            </Title>
             <Dropdown overlay={menuOverlay} trigger={["click"]}>
               <MenuIcon />
             </Dropdown>
           </Head>
           <Body>
-            <Text isDone={dataProps.done}>{dataProps.text}</Text>
+            <Text isDone={dataProps.done}>{parse(dataProps.text)}</Text>
           </Body>
           <Foot>
             <TagContent>

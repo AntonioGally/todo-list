@@ -1,114 +1,80 @@
 <p align="center">
-  <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+ <img width=200 src="./src/assets/logo.png" alt="Project logo">
 </p>
 
-<h3 align="center">todo-list</h3>
+<h3 align="center">Project TODO</h3>
 
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
+[![GitHub Issues](https://img.shields.io/github/issues/AntonioGally/todo-list)](https://github.com/AntonioGally/todo-list/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/AntonioGally/todo-list)](https://github.com/AntonioGally/todo-list/pulls)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 </div>
 
 ---
 
-<p align="center"> Few lines describing your project.
-    <br> 
+<p align="center"> This project was designed to learn new technologies and practices in the React js development environment.<br/>
+<a href="#">DEMO</a>
 </p>
 
 ## 📝 Table of Contents
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+
+The "todo list" started when I was thinking of some project to apply drag and drop technology. From that moment on, I started to structure the idea and purpose of the project.
+In addition to the features that I had already thought of adding, I also wanted to implement a synchronization algorithm with some database, in this case, firebase. The idea is: The app handles state changes by updating the database.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
-
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 ### Prerequisites
 
-What things you need to install the software and how to install them.
-
 ```
-Give examples
+Node 14
+Yarn 1.22
+Git bash 2.32
+Visual Studio Code
 ```
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running.
 
-Say what the step will be
-
 ```
-Give the example
+Clone the repo -> git clone https://github.com/AntonioGally/todo-list.git
+Open on your vsCode -> code ./todo-list
+Install dependencies -> yarn install
+Run the project -> yarn start
 ```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+<p>
+    Be first, add some tags to your todo list, and after, you add your todo with the tag that you already added.
+</p>
+<p>
+    Code List:
 
-## 🚀 Deployment <a name = "deployment"></a>
-
-Add additional notes about how to deploy this on a live system.
-
+    <code>Codded text</code>
+    <mark>Marked text</mark>
+    <b>Bold text</b>
+    <i>Italic text</i>
+    <u>Underscore text</u>
+    <link adress="www.google.com">Link text</link>
+</p>
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
+- [React](https://pt-br.reactjs.org/) - Web framework
 - [NodeJs](https://nodejs.org/en/) - Server Environment
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+- [@AntonioGally](https://github.com/AntonioGally) - Idea & Initial work

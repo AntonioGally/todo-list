@@ -49,7 +49,7 @@ const ModalTodo = ({ hideModal, showModal }) => {
 
   function onSubmit(data) {
     var existingTodo = false;
-    for (let i = 0; i < todoList.length; i++) {
+    for (let i = 0; i < todoList?.length; i++) {
       if (
         todoList[i].title.replace(/\s+/g, "").toLowerCase() ===
         data.title.replace(/\s+/g, "").toLowerCase()
@@ -65,14 +65,24 @@ const ModalTodo = ({ hideModal, showModal }) => {
       for (let i = 0; i < tagSelector.length; i++) {
         tagArr.push(tagList[tagSelector[i]]);
       }
+      var date = new Date();
+      var month = date.getMonth();
+      var day = date.getDate();
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var finalDate = `
+        ${month < 10 ? '0' + month : month}/${day < 10 ? '0' + day : day}/${date.getFullYear()} - 
+        ${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}
+      `
       var todoObj = {
         title: data.title,
         text: data.description || "",
         tags: tagArr,
         done: false,
         id: idGenerator(12),
+        date: finalDate
       };
-      var todoArr = todoList.slice();
+      var todoArr = todoList?.slice() || [];
       todoArr.push(todoObj);
       setTodoList(todoArr);
 
@@ -136,10 +146,11 @@ const ModalTodo = ({ hideModal, showModal }) => {
             <TextArea
               type="text"
               placeholder="add a description..."
+              rows={5}
               {...register("description", {
                 // required: true,
                 // pattern: /^[A-Za-z0-9\s?]+$/,
-                maxLength: 300,
+                maxLength: 500,
               })}
             />
             {/* {errors.description?.type === "required" && (
@@ -165,8 +176,8 @@ const ModalTodo = ({ hideModal, showModal }) => {
             />
           </TitleContent>
           <TagContent>
-            {tagList.length <= 0 && <>You don't have any tags</>}
-            {filterArr(searchTag, tagList).map((data, index) => (
+            {tagList?.length <= 0 && <>You don't have any tags</>}
+            {filterArr(searchTag, tagList || [], "text").map((data, index) => (
               <Tag
                 key={index}
                 colorTag={data.color}
