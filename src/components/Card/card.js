@@ -66,7 +66,7 @@ const Card = ({ dataProps, index }) => {
           isDone={dataProps.done}
         >
           <Head>
-            <Title isDone={dataProps.done}>{dataProps.title}</Title>,
+            <Title isDone={dataProps.done}>{dataProps.title}</Title>
             <Dropdown overlay={menuOverlay} trigger={["click"]}>
               <MenuIcon />
             </Dropdown>

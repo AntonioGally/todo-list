@@ -26,16 +26,14 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const { todoFilter, setTodoFilter } = useContext(dataContext);
   const [showTagContent, setShowTagContent] = useState(false);
-  const [screenWidth, setScreenWidth] = useState(0);
-  useEffect(() => {
-    setScreenWidth(window.innerWidth);
-  }, []);
+  const screenWidth = window.innerWidth
+
   return (
     <>
       <ToastContainer />
       <Container>
         {screenWidth < 768 ? (
-          <div style={{ marginBottom: 30 }}>
+          <div>
             <MenuIcon onClick={() => setShowTagContent(true)} />
             <Drawer
               contentWrapperStyle={{ minWidth: 300 }}
