@@ -6,11 +6,12 @@ import { dataContext } from "../../context/dataContext";
 //Minor components
 import { TagContent, Tag, DeleteIcon } from "./styles";
 
-const TagComponent = ({ data, index }) => {
+const TagComponent = ({ data, index, type, style }) => {
   const [opacity, setOpacity] = useState(0);
   const [background, setBackground] = useState("");
   const [padding, setPadding] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(undefined);
+  const [doneSelected, setDoneSelected] = useState(false);
 
   const {
     tagList,
@@ -29,6 +30,12 @@ const TagComponent = ({ data, index }) => {
 
   function handleSelect(indexProps) {
     var auxTagArr = tagFilter.slice();
+    if (type === "CheckDone" && doneSelected) {
+      //Remove done selection
+      setBackground("#f9f9f9");
+      setPadding(0);
+      setTagFilter([]);
+    }
     if (indexProps === selectedIndex) {
       setSelectedIndex(undefined);
       setBackground("#f9f9f9");
@@ -44,6 +51,12 @@ const TagComponent = ({ data, index }) => {
       setSelectedIndex(indexProps);
       setBackground("var(--cardBackground)");
       setPadding(10);
+      if (type === "CheckDone") {
+        auxTagArr.push({ type: "done" });
+        setTagFilter([]);
+        setDoneSelected(true);
+        return setTagFilter(auxTagArr);
+      }
       auxTagArr.push(tagList[indexProps]);
       setTagFilter(auxTagArr);
     }
@@ -74,6 +87,7 @@ const TagComponent = ({ data, index }) => {
     <>
       <TagContent
         style={{
+          ...style,
           opacity: opacity,
           background: background,
           padding: padding,
@@ -85,12 +99,14 @@ const TagComponent = ({ data, index }) => {
         }}
       >
         <Tag color={data.color}>{data.text}</Tag>
-        <DeleteIcon
-          onClick={(e) => {
-            handleDelete(index);
-            e.stopPropagation();
-          }}
-        />
+        {type !== "CheckDone" && (
+          <DeleteIcon
+            onClick={(e) => {
+              handleDelete(index);
+              e.stopPropagation();
+            }}
+          />
+        )}
       </TagContent>
     </>
   );

@@ -11,19 +11,32 @@ const CardContainer = () => {
   const { todoList, todoFilter, tagFilter } = useContext(dataContext);
 
   function filterTodosByTag() {
-    return todoList.filter((el) => {
-      if (el.title.toLowerCase().indexOf(todoFilter.title.toLowerCase()) > -1) {
-        for (let i = 0; i < el.tags.length; i++) {
-          for (let j = 0; j < tagFilter.length; j++) {
-            if (el.tags[i].id === tagFilter[j].id) {
-              return true;
+    if (tagFilter[0]?.type === "done") {
+      return todoList.filter((el) => {
+        if (
+          el.title.toLowerCase().indexOf(todoFilter.title.toLowerCase()) > -1
+        ) {
+          if (el.done) {
+            return false;
+          } else return true;
+        } else return false;
+      });
+    } else {
+      return todoList.filter((el) => {
+        if (
+          el.title.toLowerCase().indexOf(todoFilter.title.toLowerCase()) > -1
+        ) {
+          for (let i = 0; i < el.tags.length; i++) {
+            for (let j = 0; j < tagFilter.length; j++) {
+              if (el.tags[i].id === tagFilter[j].id) {
+                return true;
+              }
             }
           }
         }
-      }
-
-      return false;
-    });
+        return false;
+      });
+    }
   }
 
   return (
