@@ -22,7 +22,7 @@ import {
 } from "./styles";
 
 const SideBar = () => {
-  const { tagList } = useContext(dataContext);
+  const { tagList, todoList } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -53,7 +53,14 @@ const SideBar = () => {
           </Body>
         </div>
         <div>
-          <TagComponent data={{ color: "red", text: "Hide done todo's" }} index={0} type={'CheckDone'} style={{marginBottom: '20px'}}/>
+          {todoList?.length > 0 && (
+            <TagComponent
+              data={{ color: "red", text: "Hide done todo's" }}
+              index={0}
+              type={"CheckDone"}
+              style={{ marginBottom: "20px" }}
+            />
+          )}
           <Foot>
             <AddIcon onClick={() => setShowModal(true)} />
             <span onClick={() => setShowModal(true)}>Add a new tag</span>

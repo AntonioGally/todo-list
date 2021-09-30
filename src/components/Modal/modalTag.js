@@ -53,7 +53,7 @@ const ModalTag = ({ hideModal, showModal }) => {
 
   function onSubmit(data) {
     var existingTag = false;
-    for (let i = 0; i < tagList.length; i++) {
+    for (let i = 0; i < tagList?.length; i++) {
       if (
         tagList[i].text.replace(/\s+/g, "").toLowerCase() ===
         data.title.replace(/\s+/g, "").toLowerCase()
@@ -70,7 +70,7 @@ const ModalTag = ({ hideModal, showModal }) => {
         text: data.title,
         id: idGenerator(5),
       };
-      var auxArr = tagList.slice();
+      var auxArr = tagList?.slice() || [];
       auxArr.push(auxObj);
       setTagList(auxArr);
 

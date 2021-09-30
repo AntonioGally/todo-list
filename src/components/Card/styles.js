@@ -14,6 +14,7 @@ export const Container = styled.div`
   height: fit-content;
   @media (max-width: 768px) {
     width: 100%;
+    min-width: 290px;
   }
   ${(props) => {
     if (props.isDone) {
@@ -29,6 +30,7 @@ export const Head = styled.div`
 `;
 export const Title = styled.h3`
   font-family: "Inter";
+  width: 100%;
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -36,6 +38,14 @@ export const Title = styled.h3`
   color: var(--title);
   margin: 0;
   text-decoration: ${({ isDone }) => isDone && "line-through"};
+  position: relative;
+  > span {
+    font-size: 10px;
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    font-weight: 400;
+  }
 `;
 export const MenuIcon = styled(DotsHorizontalRounded)`
   height: 24px;

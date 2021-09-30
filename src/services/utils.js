@@ -34,7 +34,9 @@ export function shuffle(array) {
  */
 
 export function filterArr(query = "", array, param="text") {
-  // return []
+  if (!array) {
+    return []
+  }
   return array.filter(function (el) {
     return el[param].toLowerCase().indexOf(query.toLowerCase()) > -1;
   });

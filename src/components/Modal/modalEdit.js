@@ -194,8 +194,8 @@ const ModalTodo = ({ hideModal, showModal, defaultData }) => {
             />
           </TitleContent>
           <TagContent>
-            {tagList.length <= 0 && <>You don't have any tags</>}
-            {filterArr(searchTag, tagList, "text").map((data, index) => (
+            {tagList?.length <= 0 && <>You don't have any tags</>}
+            {filterArr(searchTag, tagList || [], "text").map((data, index) => (
               <Tag
                 key={index}
                 colorTag={data.color}
