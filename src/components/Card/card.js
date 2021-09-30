@@ -1,8 +1,8 @@
 import React, { useState, useContext, memo, useEffect } from "react";
 
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
-import "./parsedTags.css"
+import "./parsedTags.css";
 
 //Minor Components
 import {
@@ -66,7 +66,10 @@ const Card = ({ dataProps, index }) => {
           isDone={dataProps.done}
         >
           <Head>
-            <Title isDone={dataProps.done}>{dataProps.title}</Title>
+            <Title isDone={dataProps.done}>
+              {dataProps.title}
+              <span>{dataProps.date}</span>
+            </Title>
             <Dropdown overlay={menuOverlay} trigger={["click"]}>
               <MenuIcon />
             </Dropdown>

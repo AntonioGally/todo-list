@@ -65,12 +65,14 @@ const ModalTodo = ({ hideModal, showModal }) => {
       for (let i = 0; i < tagSelector.length; i++) {
         tagArr.push(tagList[tagSelector[i]]);
       }
+      var date = new Date();
       var todoObj = {
         title: data.title,
         text: data.description || "",
         tags: tagArr,
         done: false,
         id: idGenerator(12),
+        date: `${date.getMonth()}/${date.getDate()}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}`
       };
       var todoArr = todoList.slice();
       todoArr.push(todoObj);
