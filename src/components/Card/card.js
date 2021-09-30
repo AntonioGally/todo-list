@@ -28,12 +28,21 @@ const Card = ({ dataProps, index }) => {
   const { todoList, setTodoList } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
   const [opacity, setOpacity] = useState(0);
-  function deleteCard(indexProps) {
+
+  function deleteCard() {
     setOpacity(0);
     setTimeout(() => {
       var newArr = todoList.slice();
-      newArr.splice(indexProps, 1);
-      setTodoList(newArr);
+      for (let i = 0; i < newArr.length; i++) {
+        if (newArr[i].id === dataProps.id) {
+          newArr.splice(i, 1);
+        }
+      }
+      if (newArr.length === 0) {
+        setTodoList(null);
+      } else {
+        setTodoList(newArr);
+      }
       setOpacity(1);
     }, 250);
   }
@@ -47,7 +56,7 @@ const Card = ({ dataProps, index }) => {
     return (
       <Menu>
         <Menu.Item onClick={() => setShowModal(true)}>Edit</Menu.Item>
-        <Menu.Item onClick={() => deleteCard(index)}>Delete</Menu.Item>
+        <Menu.Item onClick={() => deleteCard()}>Delete</Menu.Item>
       </Menu>
     );
   };

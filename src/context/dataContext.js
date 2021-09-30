@@ -14,12 +14,12 @@ export default function DataContextProvider({ children }) {
 
   useEffect(() => {
     //Sync the local storage
-    if (todoList.length > 0) setTodos(todoList);
+    if (todoList?.length > 0 || todoList == null) setTodos(todoList);
   }, [todoList]);
 
   useEffect(() => {
     //Sync the local storage
-    if (tagList.length > 0) setTags(tagList);
+    if (tagList?.length > 0 || tagList == null) setTags(tagList);
   }, [tagList]);
   useEffect(() => {
     //Checking if there is a data on API

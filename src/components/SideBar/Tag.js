@@ -68,7 +68,11 @@ const TagComponent = ({ data, index, type, style }) => {
       var deletedTagID = tagList[index].id;
       var newArr = tagList.slice();
       newArr.splice(index, 1);
-      setTagList(newArr);
+      if (newArr.length === 0) {
+        setTagList(null);
+      } else {
+        setTagList(newArr);
+      }
       for (let i = 0; i < todoList.length; i++) {
         //Removing the deleted tag from all todo's
         for (let j = 0; j < todoList[i].tags.length; j++) {
