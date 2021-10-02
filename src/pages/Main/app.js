@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Col, Drawer } from "antd";
 
 //Minor Components
@@ -24,9 +24,19 @@ import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const [showModal, setShowModal] = useState(false);
-  const { todoFilter, setTodoFilter } = useContext(dataContext);
+  const { todoFilter, setTodoFilter, tagList, setTagList } = useContext(dataContext);
   const [showTagContent, setShowTagContent] = useState(false);
-  const screenWidth = window.innerWidth
+  const screenWidth = window.innerWidth;
+
+  useEffect(() => {
+    if (tagList.length === 0 && !localStorage.getItem("tags")) {
+      setTagList([
+        {color: '#1E90FF', text: 'Work', id: '0'},
+        {color: '#DC52BF', text: 'Study', id: '1'},
+        {color: '#FCF33F', text: 'School', id: '2'},
+      ])
+    }
+  }, [])
 
   return (
     <>
