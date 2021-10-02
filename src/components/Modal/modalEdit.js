@@ -82,6 +82,7 @@ const ModalTodo = ({ hideModal, showModal, defaultData }) => {
         tags: tagArr,
         done: false,
         id: defaultData.content.id,
+        date: defaultData.content.date
       };
       var todoArr = todoList.slice();
       todoArr[indexTodo] = todoObj;
