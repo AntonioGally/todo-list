@@ -63,6 +63,8 @@ Run the project -> yarn start
 <p>
     Code List:
 
+    <br> Line braker
+    <li>Listed text</li>
     <code>Codded text</code>
     <mark>Marked text</mark>
     <b>Bold text</b>
@@ -73,7 +75,6 @@ Run the project -> yarn start
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [React](https://pt-br.reactjs.org/) - Web framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
 
 ## ✍️ Authors <a name = "authors"></a>
 
