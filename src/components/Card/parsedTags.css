@@ -1,3 +1,8 @@
-mycode {
-  color: pink !important;
+code {
+  background-color: #f1f1f1;
+  font-style: oblique;
+  border-radius: 4px;
+}
+mark {
+  background-color: #f9ff73 !important;
 }
