@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 //Images
-import noData from "../../assets/no-data.jpg";
+import noData from "../../assets/no-data-2.png";
 
 //Scripts
 import { filterArr } from "../../services/utils.js";
@@ -63,8 +63,8 @@ const CardContainer = () => {
           )}
         </>
       ) : (
-        <div style={{ textAlign: "center" }}>
-          <img src={noData} style={{ width: "60%", margin: "10px auto" }} />
+        <div style={{ textAlign: "center", width: "100%" }}>
+          <img src={noData} style={{ width: "50%", margin: "10px auto" }} alt="No data"/>
           <br />
           <h2 style={{ margin: 0 }}>It sims that you dont have any todo</h2>
         </div>
