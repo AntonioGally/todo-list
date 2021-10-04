@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Col, Drawer } from "antd";
+import ReactGA from "react-ga";
 
 //Minor Components
 import {
@@ -37,6 +38,21 @@ const App = () => {
       ])
     }
   }, [])
+
+  useEffect(() => {
+    ReactGA.initialize('G-JF1788P5N0');
+
+    //to report page view
+    ReactGA.pageview("/");
+  }, [])
+
+  function handleClickAdd() {
+    ReactGA.event({
+      category: 'Button',
+      action: 'Click the button that open todo modal' 
+    });
+    setShowModal(true);
+  }
 
   return (
     <>
@@ -80,7 +96,7 @@ const App = () => {
                 });
               }}
             />
-            <AddIcon onClick={() => setShowModal(true)} />
+            <AddIcon onClick={() => {handleClickAdd()}} />
           </IconContent>
           <CardContent>
             <CardContainer />
