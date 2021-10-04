@@ -76,7 +76,7 @@ Run the project -> yarn start
     <b>Bold text</b>
     <i>Italic text</i>
     <u>Underscore text</u>
-    <link adress="www.google.com">Link text</link>
+    <a href="www.google.com">Link text</a>
 </p>
 ## ⛏️ Built Using <a name = "built_using"></a>
 
@@ -84,4 +84,5 @@ Run the project -> yarn start
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@AntonioGally](https://github.com/AntonioGally) - Idea & Initial work
+- [@AntonioGally](https://github.com/AntonioGally) - Project development
+- [Nada Ishtewi](https://www.behance.net/gallery/107935847/Todo-List-Desktop-Mobile-app-UI-Design?tracking_source=search_projects_recommended%7Ctodo%20list%20ui%20design) - Project design
