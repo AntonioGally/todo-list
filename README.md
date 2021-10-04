@@ -84,5 +84,7 @@ Run the project -> yarn start
 
 ## ✍️ Authors <a name = "authors"></a>
 
+
 - [@AntonioGally](https://github.com/AntonioGally) - Project development
 - [Nada Ishtewi](https://www.behance.net/gallery/107935847/Todo-List-Desktop-Mobile-app-UI-Design?tracking_source=search_projects_recommended%7Ctodo%20list%20ui%20design) - Project design
+
