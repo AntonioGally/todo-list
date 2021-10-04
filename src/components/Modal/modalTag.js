@@ -76,8 +76,9 @@ const ModalTag = ({ hideModal, showModal }) => {
       setTagList(auxArr);
 
       ReactGA.event({
-        category: 'Button',
-        action: 'Creating a new tag item' 
+        category: "Create",
+        action: "Creating a new tag",
+        label: "Tag Creation",
       });
 
       setSelectorError(false);

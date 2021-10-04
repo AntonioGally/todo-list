@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-
+import ReactGA from "react-ga";
 //Context
 import { dataContext } from "../../context/dataContext.js";
 
@@ -25,6 +25,15 @@ const SideBar = () => {
   const { tagList, todoList } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+
+  function handleClickAdd() {
+    ReactGA.event({
+      category: "Open",
+      action: "Openned tag creation modal",
+      label: "Tag Modal",
+    });
+    setShowModal(true);
+  }
 
   return (
     <>
@@ -62,7 +71,11 @@ const SideBar = () => {
             />
           )}
           <Foot>
-            <AddIcon onClick={() => setShowModal(true)} />
+            <AddIcon
+              onClick={() => {
+                handleClickAdd();
+              }}
+            />
             <span onClick={() => setShowModal(true)}>Add a new tag</span>
           </Foot>
         </div>

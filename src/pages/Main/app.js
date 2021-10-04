@@ -23,6 +23,8 @@ import ModalTodo from "../../components/Modal/modalTodo";
 
 import { ToastContainer } from "react-toastify";
 
+ReactGA.initialize('G-JF1788P5N0');
+
 const App = () => {
   const [showModal, setShowModal] = useState(false);
   const { todoFilter, setTodoFilter, tagList, setTagList } = useContext(dataContext);
@@ -40,16 +42,16 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    ReactGA.initialize('G-JF1788P5N0');
 
     //to report page view
-    ReactGA.pageview("/");
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }, [])
 
   function handleClickAdd() {
     ReactGA.event({
-      category: 'Button',
-      action: 'Click the button that open todo modal' 
+      category: 'Open',
+      action: 'Openned todo creation modal',
+      label: 'Todo Modal'
     });
     setShowModal(true);
   }
