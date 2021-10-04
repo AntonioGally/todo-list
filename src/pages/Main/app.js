@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Col, Drawer } from "antd";
-import ReactGA from "react-ga";
 
 //Minor Components
 import {
@@ -23,7 +22,6 @@ import ModalTodo from "../../components/Modal/modalTodo";
 
 import { ToastContainer } from "react-toastify";
 
-ReactGA.initialize('G-JF1788P5N0');
 
 const App = () => {
   const [showModal, setShowModal] = useState(false);
@@ -41,18 +39,13 @@ const App = () => {
     }
   }, [])
 
-  useEffect(() => {
-
-    //to report page view
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }, [])
 
   function handleClickAdd() {
-    ReactGA.event({
-      category: 'Open',
-      action: 'Openned todo creation modal',
-      label: 'Todo Modal'
-    });
+    window.gtag("event", "click-event", {
+      event_category: "Open",
+      action: "Openned todo creation modal",
+      label: "Todo Modal"
+    })
     setShowModal(true);
   }
 

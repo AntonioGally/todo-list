@@ -1,6 +1,5 @@
 import React, { useState, useContext, memo } from "react";
 import { useForm } from "react-hook-form";
-import ReactGA from "react-ga";
 
 //Scripts
 import { dataContext } from "../../context/dataContext";
@@ -87,8 +86,8 @@ const ModalTodo = ({ hideModal, showModal }) => {
       todoArr.push(todoObj);
       setTodoList(todoArr);
 
-      ReactGA.event({
-        category: "Create",
+      window.gtag("event", "click-event", {
+        event_category: "Create",
         action: "Creating a new todo",
         label: "Todo Creation",
       });

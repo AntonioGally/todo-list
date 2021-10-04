@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import ReactGA from "react-ga";
 //Context
 import { dataContext } from "../../context/dataContext.js";
 
@@ -27,8 +26,8 @@ const SideBar = () => {
   const [searchValue, setSearchValue] = useState("");
 
   function handleClickAdd() {
-    ReactGA.event({
-      category: "Open",
+    window.gtag("event", "click-event", {
+      event_category: "Open",
       action: "Openned tag creation modal",
       label: "Tag Modal",
     });
