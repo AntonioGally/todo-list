@@ -88,8 +88,9 @@ const ModalTodo = ({ hideModal, showModal }) => {
       setTodoList(todoArr);
 
       ReactGA.event({
-        category: 'Button',
-        action: 'Creating a new todo item' 
+        category: "Create",
+        action: "Creating a new todo",
+        label: "Todo Creation",
       });
 
       setSelectorError(false);
