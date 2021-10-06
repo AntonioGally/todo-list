@@ -37,6 +37,7 @@ const App = () => {
         {color: '#FCF33F', text: 'School', id: '2'},
       ])
     }
+    // eslint-disable-next-line
   }, [])
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext, memo, useEffect } from "react";
+import React, { useState, memo, useEffect } from "react";
 
 import parse from "html-react-parser";
 
@@ -17,39 +17,24 @@ import {
   Tag,
 } from "./styles";
 
-//Context
-import { dataContext } from "../../context/dataContext.js";
 
 //Components
 import { Checkbox, Col, Dropdown, Menu } from "antd";
 import ModalEdit from "../Modal/modalEdit";
 
-const Card = ({ dataProps, index }) => {
-  const { todoList, setTodoList } = useContext(dataContext);
+const Card = ({ dataProps, onDelete, onDone }) => {
   const [showModal, setShowModal] = useState(false);
   const [opacity, setOpacity] = useState(0);
 
   function deleteCard() {
     setOpacity(0);
     setTimeout(() => {
-      var newArr = todoList.slice();
-      for (let i = 0; i < newArr.length; i++) {
-        if (newArr[i].id === dataProps.id) {
-          newArr.splice(i, 1);
-        }
-      }
-      if (newArr.length === 0) {
-        setTodoList(null);
-      } else {
-        setTodoList(newArr);
-      }
+      onDelete();
       setOpacity(1);
     }, 250);
   }
   function handleDoneClick() {
-    var newArr = todoList.slice();
-    newArr[index].done = !newArr[index].done;
-    setTodoList(newArr);
+    onDone();
   }
 
   const menuOverlay = () => {

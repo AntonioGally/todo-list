@@ -115,6 +115,7 @@ const ModalTodo = ({ hideModal, showModal, defaultData }) => {
       }
     }
     setTagSelector(auxArr);
+    // eslint-disable-next-line
   }, [defaultData]);
 
   return (

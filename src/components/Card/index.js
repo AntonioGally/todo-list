@@ -3,15 +3,13 @@ import React, { useContext } from "react";
 //Images
 import noData from "../../assets/no-data-2.png";
 
-//Scripts
-import { filterArr } from "../../services/utils.js";
-
 //Context
 import { dataContext } from "../../context/dataContext.js";
 
 import Card from "./card.js";
 const CardContainer = () => {
-  const { todoList, todoFilter, tagFilter } = useContext(dataContext);
+  const { todoList, setTodoList, todoFilter, tagFilter } =
+    useContext(dataContext);
 
   function filterTodosByTag() {
     if (tagFilter[0]?.type === "done") {
@@ -42,6 +40,38 @@ const CardContainer = () => {
     }
   }
 
+  function filterTodosByTitle() {
+    return todoList.filter(function (el) {
+      return (
+        el.title.toLowerCase().indexOf(todoFilter.title.toLowerCase()) > -1
+      );
+    });
+  }
+
+  function deleteHandler(id) {
+    var newArr = todoList.slice();
+    for (let i = 0; i < newArr.length; i++) {
+      if (newArr[i].id === id) {
+        newArr.splice(i, 1);
+      }
+    }
+    if (newArr.length === 0) {
+      return setTodoList(null);
+    } else {
+      return setTodoList(newArr);
+    }
+  }
+
+  function doneHandler(id) {
+    var newArr = todoList.slice();
+    for (let i = 0; i < newArr.length; i++) {
+      if (newArr[i].id === id) {
+        newArr[i].done = !newArr[i].done;
+      }
+    }
+    return setTodoList(newArr);
+  }
+
   return (
     <>
       {todoList?.length > 0 ? (
@@ -49,22 +79,34 @@ const CardContainer = () => {
           {tagFilter.length > 0 ? (
             <>
               {filterTodosByTag().map((data, index) => (
-                <Card dataProps={data} key={index} index={index} />
+                <Card
+                  dataProps={data}
+                  key={index}
+                  onDelete={() => deleteHandler(data.id)}
+                  onDone={() => doneHandler(data.id)}
+                />
               ))}
             </>
           ) : (
             <>
-              {filterArr(todoFilter.title, todoList, "title").map(
-                (data, index) => (
-                  <Card dataProps={data} key={index} index={index} />
-                )
-              )}
+              {filterTodosByTitle().map((data, index) => (
+                <Card
+                  dataProps={data}
+                  key={index}
+                  onDelete={() => deleteHandler(data.id)}
+                  onDone={() => doneHandler(data.id)}
+                />
+              ))}
             </>
           )}
         </>
       ) : (
         <div style={{ textAlign: "center", width: "100%" }}>
-          <img src={noData} style={{ width: "50%", margin: "10px auto" }} alt="No data"/>
+          <img
+            src={noData}
+            style={{ width: "50%", margin: "10px auto" }}
+            alt="No data"
+          />
           <br />
           <h2 style={{ margin: 0 }}>It sims that you dont have any todo</h2>
         </div>

@@ -66,7 +66,7 @@ const ModalTodo = ({ hideModal, showModal }) => {
         tagArr.push(tagList[tagSelector[i]]);
       }
       var date = new Date();
-      var month = date.getMonth();
+      var month = date.getMonth() + 1;
       var day = date.getDate();
       var hours = date.getHours();
       var minutes = date.getMinutes();
