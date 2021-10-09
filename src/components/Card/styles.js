@@ -11,6 +11,7 @@ export const Container = styled.div`
   border-radius: 6px;
   width: 95%;
   margin: 6px 0;
+  transition: "all .25s ease";
   height: fit-content;
   @media (max-width: 768px) {
     width: 100%;
