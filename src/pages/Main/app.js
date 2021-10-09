@@ -8,6 +8,8 @@ import {
   SideBarContent,
   CardContent,
   IconContent,
+  TrashIcon,
+  ArrowDownIcon,
   AddIcon,
   Input,
 } from "./styles";
@@ -19,36 +21,68 @@ import { dataContext } from "../../context/dataContext.js";
 import SideBar from "../../components/SideBar";
 import CardContainer from "../../components/Card";
 import ModalTodo from "../../components/Modal/modalTodo";
+import { Dropdown, Menu } from "antd";
 
 import { ToastContainer } from "react-toastify";
 
-
 const App = () => {
   const [showModal, setShowModal] = useState(false);
-  const { todoFilter, setTodoFilter, tagList, setTagList } = useContext(dataContext);
+  const {
+    todoFilter,
+    setTodoFilter,
+    tagList,
+    setTagList,
+    setTodoList,
+    todoList,
+  } = useContext(dataContext);
   const [showTagContent, setShowTagContent] = useState(false);
   const screenWidth = window.innerWidth;
 
   useEffect(() => {
     if (tagList.length === 0 && !localStorage.getItem("tags")) {
       setTagList([
-        {color: '#1E90FF', text: 'Work', id: '0'},
-        {color: '#DC52BF', text: 'Study', id: '1'},
-        {color: '#FCF33F', text: 'School', id: '2'},
-      ])
+        { color: "#1E90FF", text: "Work", id: "0" },
+        { color: "#DC52BF", text: "Study", id: "1" },
+        { color: "#FCF33F", text: "School", id: "2" },
+      ]);
     }
     // eslint-disable-next-line
-  }, [])
-
+  }, []);
 
   function handleClickAdd() {
     window.gtag("event", "click-event", {
       event_category: "Open",
       action: "Openned todo creation modal",
-      label: "Todo Modal"
-    })
+      label: "Todo Modal",
+    });
     setShowModal(true);
   }
+
+  function onDeleteAll() {
+    setTodoList(null);
+  }
+  function onDeleteDone() {
+    var cloneArr = todoList.slice();
+    for (let i = cloneArr.length - 1; i >= 0; i--) {
+      if (cloneArr[i].done) {
+        cloneArr.splice(i, 1);
+      }
+    }
+    setTodoList(cloneArr);
+  }
+
+  const menuOverlay = () => {
+    return (
+      <Menu>
+        <Menu.Item key={1} onClick={() => onDeleteAll()}>
+          Delete all
+        </Menu.Item>
+        <Menu.Item key={2} onClick={() => onDeleteDone()}>
+          Delete done
+        </Menu.Item>
+      </Menu>
+    );
+  };
 
   return (
     <>
@@ -92,7 +126,26 @@ const App = () => {
                 });
               }}
             />
-            <AddIcon onClick={() => {handleClickAdd()}} />
+            <div>
+              <div>
+                <Dropdown
+                  overlay={menuOverlay}
+                  trigger={["click"]}
+                  destroyPopupOnHide={true}
+                  arrow={true}
+                >
+                  <div>
+                    <TrashIcon />
+                    <ArrowDownIcon />
+                  </div>
+                </Dropdown>
+              </div>
+              <AddIcon
+                onClick={() => {
+                  handleClickAdd();
+                }}
+              />
+            </div>
           </IconContent>
           <CardContent>
             <CardContainer />
