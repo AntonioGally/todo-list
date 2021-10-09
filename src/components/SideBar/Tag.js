@@ -6,7 +6,7 @@ import { dataContext } from "../../context/dataContext";
 //Minor components
 import { TagContent, Tag, DeleteIcon } from "./styles";
 
-const TagComponent = ({ data, index, type, style }) => {
+const TagComponent = ({ data, index, type, style, todoAmount }) => {
   const [opacity, setOpacity] = useState(0);
   const [background, setBackground] = useState("");
   const [padding, setPadding] = useState(0);
@@ -73,7 +73,7 @@ const TagComponent = ({ data, index, type, style }) => {
       } else {
         setTagList(newArr);
       }
-      for (let i = 0; i < todoList.length; i++) {
+      for (let i = 0; i < todoList?.length; i++) {
         //Removing the deleted tag from all todo's
         for (let j = 0; j < todoList[i].tags.length; j++) {
           if (todoList[i].tags[j].id === deletedTagID) {
@@ -104,12 +104,15 @@ const TagComponent = ({ data, index, type, style }) => {
       >
         <Tag color={data.color}>{data.text}</Tag>
         {type !== "CheckDone" && (
-          <DeleteIcon
-            onClick={(e) => {
-              handleDelete(index);
-              e.stopPropagation();
-            }}
-          />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div>({todoAmount[data.text]?.length})</div>
+            <DeleteIcon
+              onClick={(e) => {
+                handleDelete(index);
+                e.stopPropagation();
+              }}
+            />
+          </div>
         )}
       </TagContent>
     </>

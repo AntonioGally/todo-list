@@ -2,6 +2,8 @@ import styled from "styled-components";
 //Icons
 import { Add } from "@styled-icons/fluentui-system-filled/Add";
 import { MenuAltLeft } from "@styled-icons/boxicons-regular/MenuAltLeft";
+import { ArrowIosDownwardOutline } from "@styled-icons/evaicons-outline/ArrowIosDownwardOutline";
+import { Trash } from "@styled-icons/bootstrap/Trash";
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -36,10 +38,38 @@ export const IconContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > div {
+      cursor: pointer;
+    }
+  }
 `;
+
+export const TrashIcon = styled(Trash)`
+  width: 32px;
+  height: 32px;
+  color: var(--subTitle);
+  fill: var(--subTitle);
+  flex-shrink: 0;
+  @media (max-width: 768px) {
+    width: 34px;
+    height: 34px;
+  }
+`;
+export const ArrowDownIcon = styled(ArrowIosDownwardOutline)`
+  width: 22px;
+  height: 22px;
+  color: var(--subTitle);
+  fill: var(--subTitle);
+`;
+
 export const AddIcon = styled(Add)`
-  width: 52px;
-  height: 52px;
+  margin-left: 20px;
+  width: 38px;
+  height: 38px;
   color: var(--subTitle);
   fill: var(--subTitle);
   flex-shrink: 0;

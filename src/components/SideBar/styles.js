@@ -103,6 +103,7 @@ export const Tag = styled.span`
 `;
 
 export const DeleteIcon = styled(Trash)`
+  margin-left: 13px;
   width: 24px;
   height: 24px;
   cursor: pointer;

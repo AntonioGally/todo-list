@@ -1,4 +1,4 @@
-import React, { useState, useContext, memo, useEffect } from "react";
+import React, { useState, memo, useEffect } from "react";
 
 import parse from "html-react-parser";
 
@@ -17,46 +17,31 @@ import {
   Tag,
 } from "./styles";
 
-//Context
-import { dataContext } from "../../context/dataContext.js";
-
 //Components
-import { Checkbox, Col, Dropdown, Menu } from "antd";
+import { Checkbox, Row, Dropdown, Menu } from "antd";
 import ModalEdit from "../Modal/modalEdit";
 
-const Card = ({ dataProps, index }) => {
-  const { todoList, setTodoList } = useContext(dataContext);
+const Card = ({ dataProps, onDelete, onDone }) => {
   const [showModal, setShowModal] = useState(false);
   const [opacity, setOpacity] = useState(0);
 
   function deleteCard() {
     setOpacity(0);
     setTimeout(() => {
-      var newArr = todoList.slice();
-      for (let i = 0; i < newArr.length; i++) {
-        if (newArr[i].id === dataProps.id) {
-          newArr.splice(i, 1);
-        }
-      }
-      if (newArr.length === 0) {
-        setTodoList(null);
-      } else {
-        setTodoList(newArr);
-      }
+      onDelete();
       setOpacity(1);
     }, 250);
-  }
-  function handleDoneClick() {
-    var newArr = todoList.slice();
-    newArr[index].done = !newArr[index].done;
-    setTodoList(newArr);
   }
 
   const menuOverlay = () => {
     return (
       <Menu>
-        <Menu.Item onClick={() => setShowModal(true)}>Edit</Menu.Item>
-        <Menu.Item onClick={() => deleteCard()}>Delete</Menu.Item>
+        <Menu.Item onClick={() => setShowModal(true)} key={1}>
+          Edit
+        </Menu.Item>
+        <Menu.Item onClick={() => deleteCard()} key={2}>
+          Delete
+        </Menu.Item>
       </Menu>
     );
   };
@@ -69,10 +54,11 @@ const Card = ({ dataProps, index }) => {
 
   return (
     <>
-      <Col sm={24} md={12} lg={12}>
+      <Row style={{ width: "100%" }}>
         <Container
-          style={{ opacity: opacity, transition: "all .25s ease" }}
+          style={{ opacity: opacity }}
           isDone={dataProps.done}
+          onDoubleClick={() => onDone()}
         >
           <Head>
             <Title isDone={dataProps.done}>
@@ -92,15 +78,12 @@ const Card = ({ dataProps, index }) => {
                 <Tag key={index} color={data.color} />
               ))}
             </TagContent>
-            <Checkbox
-              checked={dataProps.done}
-              onChange={() => handleDoneClick()}
-            >
+            <Checkbox checked={dataProps.done} onChange={() => onDone()}>
               Done
             </Checkbox>
           </Foot>
         </Container>
-      </Col>
+      </Row>
       <ModalEdit
         hideModal={() => setShowModal(false)}
         showModal={showModal}
