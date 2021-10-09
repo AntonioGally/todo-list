@@ -21,7 +21,7 @@ import {
 } from "./styles";
 
 const SideBar = () => {
-  const { tagList, todoList } = useContext(dataContext);
+  const { tagList, todoList, relationTagTodo } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -52,7 +52,7 @@ const SideBar = () => {
                   />
                 </SearchContent>
                 {filterArr(searchValue, tagList, "text").map((data, index) => (
-                  <TagComponent data={data} index={index} key={index} />
+                  <TagComponent data={data} index={index} key={index} todoAmount={relationTagTodo}/>
                 ))}
               </>
             ) : (

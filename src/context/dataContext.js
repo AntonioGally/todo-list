@@ -12,17 +12,19 @@ export default function DataContextProvider({ children }) {
   const [tagFilter, setTagFilter] = useState([]);
   const [todoFilter, setTodoFilter] = useState({ title: "" });
 
+  const [relationTagTodo, setRelationTagTodo] = useState({});
+
   useEffect(() => {
-    //Sync the local storage
+    //Sync the local storage with state data
     if (todoList?.length > 0 || todoList == null) setTodos(todoList);
   }, [todoList]);
 
   useEffect(() => {
-    //Sync the local storage
+    //Sync the local storage with state data
     if (tagList?.length > 0 || tagList == null) setTags(tagList);
   }, [tagList]);
   useEffect(() => {
-    //Checking if there is a data on API
+    //Sync the react state with local storage data
     if (getTodos()) {
       setTodoList(getTodos());
     }
@@ -30,6 +32,21 @@ export default function DataContextProvider({ children }) {
       setTagList(getTags());
     }
   }, []);
+
+  useEffect(() => {
+    // Inserting tags and todos relations into state ex: (tag01: [todos], tag02: [todos])
+    var obj = {};
+    tagList?.forEach((value) => {
+      obj[value.text] = [];
+    });
+    todoList?.forEach((value) => {
+      value.tags.forEach((todoTags) => {
+        obj[todoTags.text].push(value);
+      });
+    });
+    setRelationTagTodo(obj);
+    //eslint-disable-next-line
+  }, [todoList]);
 
   return (
     <dataContext.Provider
@@ -42,6 +59,7 @@ export default function DataContextProvider({ children }) {
         setTagFilter,
         todoFilter,
         setTodoFilter,
+        relationTagTodo,
       }}
     >
       {children}

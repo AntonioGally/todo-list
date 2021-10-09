@@ -134,7 +134,7 @@ const App = () => {
                   destroyPopupOnHide={true}
                   arrow={true}
                 >
-                  <div>
+                  <div style={{ display: "flex", alignItems: "center" }}>
                     <TrashIcon />
                     <ArrowDownIcon />
                   </div>
