@@ -17,7 +17,6 @@ import {
   Tag,
 } from "./styles";
 
-
 //Components
 import { Checkbox, Row, Dropdown, Menu } from "antd";
 import ModalEdit from "../Modal/modalEdit";
@@ -33,15 +32,16 @@ const Card = ({ dataProps, onDelete, onDone }) => {
       setOpacity(1);
     }, 250);
   }
-  function handleDoneClick() {
-    onDone();
-  }
 
   const menuOverlay = () => {
     return (
       <Menu>
-        <Menu.Item onClick={() => setShowModal(true)} key={1}>Edit</Menu.Item>
-        <Menu.Item onClick={() => deleteCard()} key={2}>Delete</Menu.Item>
+        <Menu.Item onClick={() => setShowModal(true)} key={1}>
+          Edit
+        </Menu.Item>
+        <Menu.Item onClick={() => deleteCard()} key={2}>
+          Delete
+        </Menu.Item>
       </Menu>
     );
   };
@@ -54,10 +54,11 @@ const Card = ({ dataProps, onDelete, onDone }) => {
 
   return (
     <>
-      <Row style={{width: '100%'}}>
+      <Row style={{ width: "100%" }}>
         <Container
-          style={{ opacity: opacity, transition: "all .25s ease" }}
+          style={{ opacity: opacity }}
           isDone={dataProps.done}
+          onDoubleClick={() => onDone()}
         >
           <Head>
             <Title isDone={dataProps.done}>
@@ -77,10 +78,7 @@ const Card = ({ dataProps, onDelete, onDone }) => {
                 <Tag key={index} color={data.color} />
               ))}
             </TagContent>
-            <Checkbox
-              checked={dataProps.done}
-              onChange={() => handleDoneClick()}
-            >
+            <Checkbox checked={dataProps.done} onChange={() => onDone()}>
               Done
             </Checkbox>
           </Foot>
