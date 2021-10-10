@@ -25,10 +25,7 @@ const CardContainer = () => {
     function firstFilterLayer() {
       //Filter by tag or title
       if (tagFilter.length > 0) {
-        if (tagFilter[0].type === "done") {
-          return [];
-        }
-        if (tagFilter.length === 1 || tagFilter.length === 0) {
+        if (tagFilter.length === 1) {
           return relationTagTodo[tagFilter[0].text];
         } else {
           var masterArr = [];
@@ -48,7 +45,7 @@ const CardContainer = () => {
     //Filter by done
     if (doneFilter) {
       return firstFilterLayer().filter((el) => {
-        return el.done;
+        return !el.done
       });
     } else {
       return firstFilterLayer();

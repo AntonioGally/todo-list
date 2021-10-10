@@ -35,7 +35,6 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
       //Remove done selection
       setBackground("#f9f9f9");
       setPadding(0);
-      setTagFilter([]);
       setDoneFilter(false);
     }
     if (indexProps === selectedIndex) {
@@ -55,7 +54,7 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
         setBackground("var(--cardBackground)");
         setPadding(10);
         if (type === "CheckDone") {
-          setDoneFilter(true);
+          return setDoneFilter(true);
         }
         auxTagArr.push(tagList[indexProps]);
         setTagFilter(auxTagArr);
