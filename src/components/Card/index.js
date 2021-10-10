@@ -4,48 +4,54 @@ import { Col } from "antd";
 //Images
 import noData from "../../assets/no-data-2.png";
 
+//Scripts
+import { arrayIntersection } from "../../services/utils.js";
+
 //Context
 import { dataContext } from "../../context/dataContext.js";
 
 import Card from "./card.js";
 const CardContainer = () => {
-  const { todoList, setTodoList, todoFilter, tagFilter } =
-    useContext(dataContext);
+  const {
+    todoList,
+    setTodoList,
+    todoFilter,
+    tagFilter,
+    relationTagTodo,
+    doneFilter,
+  } = useContext(dataContext);
 
   function filterTodo() {
-    if (tagFilter.length > 0) {
-      if (tagFilter[0]?.type === "done") {
-        return todoList.filter((el) => {
-          if (
-            el.title.toLowerCase().indexOf(todoFilter.title.toLowerCase()) > -1
-          ) {
-            if (el.done) {
-              return false;
-            } else return true;
-          } else return false;
-        });
+    function firstFilterLayer() {
+      //Filter by tag or title
+      if (tagFilter.length > 0) {
+        if (tagFilter[0].type === "done") {
+          return [];
+        }
+        if (tagFilter.length === 1 || tagFilter.length === 0) {
+          return relationTagTodo[tagFilter[0].text];
+        } else {
+          var masterArr = [];
+          tagFilter.forEach((value) => {
+            masterArr.push(relationTagTodo[value.text]);
+          });
+          return arrayIntersection(masterArr[0], masterArr[1], "id");
+        }
       } else {
-        return todoList.filter((el) => {
-          if (
+        return todoList.filter(function (el) {
+          return (
             el.title.toLowerCase().indexOf(todoFilter.title.toLowerCase()) > -1
-          ) {
-            for (let i = 0; i < el.tags.length; i++) {
-              for (let j = 0; j < tagFilter.length; j++) {
-                if (el.tags[i].id === tagFilter[j].id) {
-                  return true;
-                }
-              }
-            }
-          }
-          return false;
+          );
         });
       }
-    } else {
-      return todoList.filter(function (el) {
-        return (
-          el.title.toLowerCase().indexOf(todoFilter.title.toLowerCase()) > -1
-        );
+    }
+    //Filter by done
+    if (doneFilter) {
+      return firstFilterLayer().filter((el) => {
+        return el.done;
       });
+    } else {
+      return firstFilterLayer();
     }
   }
 

@@ -11,7 +11,6 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
   const [background, setBackground] = useState("");
   const [padding, setPadding] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(undefined);
-  const [doneSelected, setDoneSelected] = useState(false);
 
   const {
     tagList,
@@ -20,6 +19,8 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
     setTodoList,
     tagFilter,
     setTagFilter,
+    doneFilter,
+    setDoneFilter,
   } = useContext(dataContext);
 
   useEffect(() => {
@@ -30,11 +31,12 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
 
   function handleSelect(indexProps) {
     var auxTagArr = tagFilter.slice();
-    if (type === "CheckDone" && doneSelected) {
+    if (type === "CheckDone" && doneFilter) {
       //Remove done selection
       setBackground("#f9f9f9");
       setPadding(0);
       setTagFilter([]);
+      setDoneFilter(false);
     }
     if (indexProps === selectedIndex) {
       setSelectedIndex(undefined);
@@ -48,17 +50,16 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
         }
       }
     } else {
-      setSelectedIndex(indexProps);
-      setBackground("var(--cardBackground)");
-      setPadding(10);
-      if (type === "CheckDone") {
-        auxTagArr.push({ type: "done" });
-        setTagFilter([]);
-        setDoneSelected(true);
-        return setTagFilter(auxTagArr);
+      if (tagFilter.length < 2) {
+        setSelectedIndex(indexProps);
+        setBackground("var(--cardBackground)");
+        setPadding(10);
+        if (type === "CheckDone") {
+          setDoneFilter(true);
+        }
+        auxTagArr.push(tagList[indexProps]);
+        setTagFilter(auxTagArr);
       }
-      auxTagArr.push(tagList[indexProps]);
-      setTagFilter(auxTagArr);
     }
   }
 
