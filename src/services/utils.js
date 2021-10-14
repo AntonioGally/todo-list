@@ -33,9 +33,9 @@ export function shuffle(array) {
  * @param {Array} array
  */
 
-export function filterArr(query = "", array, param="text") {
+export function filterArr(query = "", array, param = "text") {
   if (!array) {
-    return []
+    return [];
   }
   return array.filter(function (el) {
     return el[param].toLowerCase().indexOf(query.toLowerCase()) > -1;
@@ -50,4 +50,16 @@ export function idGenerator(size) {
   }
   var id = randomized + "-" + digito;
   return id;
+}
+
+/**
+ * @param firstArray
+ * @param secondArray
+ * @param comparatorParameter
+ */
+export function arrayIntersection(arr1, arr2, str) {
+  var filteredArray = arr1?.filter(function (value) {
+    return arr2?.find((el) => el[str] === value[str]);
+  });
+  return filteredArray;
 }
