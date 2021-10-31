@@ -81,7 +81,7 @@ const CardContainer = () => {
       {todoList?.length > 0 ? (
         <>
           <Col sm={24} md={12} lg={12}>
-            {filterTodo().map((data, index) => {
+            {filterTodo()?.map((data, index) => {
               if (index % 2 === 0) {
                 return (
                   <Card
@@ -95,7 +95,7 @@ const CardContainer = () => {
             })}
           </Col>
           <Col sm={24} md={12} lg={12}>
-            {filterTodo().map((data, index) => {
+            {filterTodo()?.map((data, index) => {
               if (index % 2 !== 0) {
                 return (
                   <Card
