@@ -11,6 +11,7 @@ export default function DataContextProvider({ children }) {
 
   const [tagFilter, setTagFilter] = useState([]);
   const [todoFilter, setTodoFilter] = useState({ title: "" });
+  const [doneFilter, setDoneFilter] = useState(false);
 
   const [relationTagTodo, setRelationTagTodo] = useState({});
 
@@ -60,6 +61,8 @@ export default function DataContextProvider({ children }) {
         todoFilter,
         setTodoFilter,
         relationTagTodo,
+        doneFilter,
+        setDoneFilter,
       }}
     >
       {children}

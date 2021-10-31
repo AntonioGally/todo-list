@@ -1,17 +1,75 @@
-import React, { useEffect, useState, memo, useContext } from "react";
-
+import React, { useEffect, useState, memo, useContext, useRef } from "react";
+import { useDrag, useDrop } from "react-dnd";
 //Scripts
 import { dataContext } from "../../context/dataContext";
 
 //Minor components
 import { TagContent, Tag, DeleteIcon } from "./styles";
 
-const TagComponent = ({ data, index, type, style, todoAmount }) => {
+const TagComponent = ({ data, index, type, style, todoAmount, moveTag, id }) => {
+  const ref = useRef(null);
+  const [{ handlerId }, drop] = useDrop({
+    accept: "tag",
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
+    hover(item, monitor) {
+      if (!ref.current) {
+        return;
+      }
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      // Determine rectangle on screen
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      // Get vertical middle
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset();
+      // Get pixels to the top
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+      // Time to actually perform the action
+      moveTag(dragIndex, hoverIndex);
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      item.index = hoverIndex;
+    },
+  });
+  //eslint-disable-next-line
+  const [{ isDragging }, drag] = useDrag({
+    type: "tag",
+    item: () => {
+      return { id, index };
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+  drag(drop(ref));
+
   const [opacity, setOpacity] = useState(0);
   const [background, setBackground] = useState("");
   const [padding, setPadding] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(undefined);
-  const [doneSelected, setDoneSelected] = useState(false);
 
   const {
     tagList,
@@ -20,6 +78,8 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
     setTodoList,
     tagFilter,
     setTagFilter,
+    doneFilter,
+    setDoneFilter,
   } = useContext(dataContext);
 
   useEffect(() => {
@@ -30,11 +90,11 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
 
   function handleSelect(indexProps) {
     var auxTagArr = tagFilter.slice();
-    if (type === "CheckDone" && doneSelected) {
+    if (type === "CheckDone" && doneFilter) {
       //Remove done selection
       setBackground("#f9f9f9");
       setPadding(0);
-      setTagFilter([]);
+      setDoneFilter(false);
     }
     if (indexProps === selectedIndex) {
       setSelectedIndex(undefined);
@@ -48,17 +108,16 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
         }
       }
     } else {
-      setSelectedIndex(indexProps);
-      setBackground("var(--cardBackground)");
-      setPadding(10);
-      if (type === "CheckDone") {
-        auxTagArr.push({ type: "done" });
-        setTagFilter([]);
-        setDoneSelected(true);
-        return setTagFilter(auxTagArr);
+      if (tagFilter.length < 2) {
+        setSelectedIndex(indexProps);
+        setBackground("var(--cardBackground)");
+        setPadding(10);
+        if (type === "CheckDone") {
+          return setDoneFilter(true);
+        }
+        auxTagArr.push(tagList[indexProps]);
+        setTagFilter(auxTagArr);
       }
-      auxTagArr.push(tagList[indexProps]);
-      setTagFilter(auxTagArr);
     }
   }
 
@@ -86,10 +145,11 @@ const TagComponent = ({ data, index, type, style, todoAmount }) => {
       setOpacity(1);
     }, 250);
   }
-
   return (
     <>
       <TagContent
+        ref={ref}
+        data-handler-id={handlerId}
         style={{
           ...style,
           opacity: opacity,
