@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
+import update from "immutability-helper";
 //Context
 import { dataContext } from "../../context/dataContext.js";
 
@@ -21,9 +22,24 @@ import {
 } from "./styles";
 
 const SideBar = () => {
-  const { tagList, todoList, relationTagTodo } = useContext(dataContext);
+  const { tagList, setTagList, todoList, relationTagTodo } = useContext(dataContext);
   const [showModal, setShowModal] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+
+  const moveTag = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragCard = tagList[dragIndex];
+      setTagList(
+        update(tagList, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragCard],
+          ],
+        })
+      );
+    },
+    [tagList, setTagList]
+  );
 
   function handleClickAdd() {
     window.gtag("event", "click-event", {
@@ -52,7 +68,14 @@ const SideBar = () => {
                   />
                 </SearchContent>
                 {filterArr(searchValue, tagList, "text").map((data, index) => (
-                  <TagComponent data={data} index={index} key={index} todoAmount={relationTagTodo}/>
+                  <TagComponent
+                    data={data}
+                    index={index}
+                    key={index}
+                    id={data.id}
+                    moveTag={moveTag}
+                    todoAmount={relationTagTodo}
+                  />
                 ))}
               </>
             ) : (

@@ -1,6 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Col, Drawer } from "antd";
 
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 //Minor Components
 import {
   Container,
@@ -103,14 +106,18 @@ const App = () => {
               style={{ position: "absolute" }}
             >
               <SideBarContent>
-                <SideBar />
+                <DndProvider backend={HTML5Backend}>
+                  <SideBar />
+                </DndProvider>
               </SideBarContent>
             </Drawer>
           </div>
         ) : (
           <Col xs={24} sm={24} md={24} lg={6} xl={6}>
             <SideBarContent>
-              <SideBar />
+              <DndProvider backend={HTML5Backend}>
+                <SideBar />
+              </DndProvider>
             </SideBarContent>
           </Col>
         )}
