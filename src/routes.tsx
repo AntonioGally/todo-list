@@ -1,13 +1,11 @@
-import React from "react";
 import { Route, HashRouter, Switch } from "react-router-dom";
-
-import Main from "./pages/Main";
+import App from "./Templates/App/App";
 
 const Router = () => {
   return (
     <HashRouter>
       <Switch>
-        <Route exact path="/" component={Main} />
+        <Route exact path="/" component={App} />
       </Switch>
     </HashRouter>
   );

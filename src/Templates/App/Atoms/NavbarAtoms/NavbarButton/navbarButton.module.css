@@ -1,0 +1,13 @@
+.button {
+    margin-left: 20px;
+    width: fit-content;
+    border: none;
+    outline: 0;
+    background: none;
+}
+
+.button>span {
+    font-size: 38px;
+    line-height: 0;
+    color: var(--subTitle);
+}

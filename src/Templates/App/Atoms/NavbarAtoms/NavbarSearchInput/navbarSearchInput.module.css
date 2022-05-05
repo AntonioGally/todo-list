@@ -1,0 +1,9 @@
+.input {
+    width: 30%;
+    padding: 14px;
+    border: none;
+    outline: 0px;
+    color: var(--subTitle);
+    font-size: 18px;
+    background-color: transparent;
+}
