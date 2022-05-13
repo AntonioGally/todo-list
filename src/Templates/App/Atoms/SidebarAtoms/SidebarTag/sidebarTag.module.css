@@ -1,0 +1,39 @@
+.tag-wrapper {
+    margin-top: 12px;
+    width: 100%;
+    transition: padding 0.2s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.tag-wrapper > div {
+    width: 85%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tag-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.tag-text {
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    /* min-height: 30px; */
+    width: fit-content;
+    max-width: 98%;
+    font-family: "Inter";
+    font-style: normal;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 165%;
+    color: var(--subTitle);
+    /* padding-left: 26px; */
+    position: relative;
+    margin-left: 5%;
+}

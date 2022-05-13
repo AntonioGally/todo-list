@@ -1,7 +1,14 @@
+//lib
 import React from "react"
+//Interface
+import { sidebarTrashIconPropsInterface } from "./sidebarTrashIconInterface"
+//Css
+import sidebarTrashIconStyles from "./sidebarTrashIcon.module.css";
 
-const SidebarTrashIcon = () => {
-    return <h1>Oi</h1>
+const SidebarTrashIcon: React.FC<sidebarTrashIconPropsInterface> = (props) => {
+    return (
+        <i className={`fa-solid fa-trash ${sidebarTrashIconStyles["icon"]}`} onClick={props.onClick} />
+    )
 }
 
 export default SidebarTrashIcon;
