@@ -8,7 +8,12 @@ import NavbarButton from "../../Atoms/NavbarAtoms/NavbarButton/NavbarButton";
 import navbarStyles from "./navbar.module.css";
 
 const Navbar = () => {
-    const [navbarSearchInputValue, setNavbarSearchInputValue] = useState(String)
+    const [navbarSearchInputValue, setNavbarSearchInputValue] = useState(String);
+
+    function handleButtonClick() {
+        console.log("Button")
+    }
+
     return (
         <nav className={navbarStyles["navbar-wrapper"]}>
             <div>
@@ -16,7 +21,7 @@ const Navbar = () => {
                 <NavbarSearchInput value={navbarSearchInputValue} onChange={setNavbarSearchInputValue}
                     placeholder="Search for todos..." />
             </div>
-            <NavbarButton>
+            <NavbarButton buttonCallback={handleButtonClick}>
                 <i className="fal fa-plus"></i>
             </NavbarButton>
         </nav >

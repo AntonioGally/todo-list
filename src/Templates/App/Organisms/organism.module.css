@@ -1,5 +1,25 @@
 .app-organism-wrapper {
     width: 100vw;
     height: 10vh;
-    margin-bottom: 15px;   
+    margin-bottom: 15px;
+}
+
+.columns-wrapper {
+    height: 90vh;
+    width: 100vw;
+    overflow: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.column-1 {
+    width: 25%;
+    height: 100%;
+}
+
+.column-2 {
+    width: 75%;
+    height: 100%;
+    background-color: #ddd;
 }

@@ -7,7 +7,7 @@ import navbarButtonStyles from "./navbarButton.module.css"
 
 const NavbarButton: React.FC<navbarButtonPropsInterface> = (props) => {
     return (
-        <button className={navbarButtonStyles["button"]}>
+        <button className={navbarButtonStyles["button"]} onClick={props.buttonCallback}>
             <span>
                 {props.children}
             </span>

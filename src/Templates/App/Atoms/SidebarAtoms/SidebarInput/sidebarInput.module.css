@@ -1,0 +1,12 @@
+.input {
+    width: 100%;
+    padding: 12px 12px 12px 0px;
+    border: none;
+    outline: 0px;
+    color: var(--subTitle);
+    font-size: 15px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    background-color: transparent;
+    margin-top: 16px;
+}

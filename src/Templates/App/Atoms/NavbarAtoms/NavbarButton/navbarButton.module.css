@@ -4,6 +4,7 @@
     border: none;
     outline: 0;
     background: none;
+    cursor: pointer;
 }
 
 .button>span {

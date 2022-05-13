@@ -1,4 +1,5 @@
 
 export interface navbarButtonPropsInterface {
-    children: JSX.Element
+    children: JSX.Element;
+    buttonCallback: () => void
 }
